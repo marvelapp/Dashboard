@@ -7,6 +7,9 @@ $(function() {
 const marvelUrl = "https://marvelapp.com/"
 const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
 
+// Possible values: user:read, projects:read, projects:write, projects:delete
+const scopes = "projects:read"
+
 // Auth
 // ------------------------------------------------------------
 // Create your application on marvelapp.com/oauth/applications/
@@ -47,7 +50,7 @@ function checkForTokenInUrl(){
     return
   }
 
-  // No Hash in the url
+  // Hash in the url
   // eg: http://helloworld#access_token=1234
 
   var hashData = window.location.hash;
@@ -138,7 +141,7 @@ function showLoggedOut(){
 // Design
 // ------------------------------------------------------------
 
-$('#connectMarvelButton').attr("href", authorizeUrl("projects:read"))
+$('#connectMarvelButton').attr("href", authorizeUrl(scopes))
 
 // Actions
 // ------------------------------------------------------------
