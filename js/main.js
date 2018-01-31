@@ -2,6 +2,7 @@
 $(function() {
 
 // Constants
+// ------------------------------------------------------------
 
 const marvelUrl = "https://marvelapp.com/"
 const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
