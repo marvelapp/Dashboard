@@ -7,6 +7,11 @@ const marvelUrl = "https://marvelapp.com/"
 const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
 
 // Auth
+// ------------------------------------------------------------
+// Create your application on marvelapp.com/oauth/applications/
+// This example uses:
+// Client Type: confidential
+// Authorization Grant Type: authorization-code
 
 function state(){
 
@@ -29,17 +34,6 @@ function authorizeUrl(scope){
 
   var url = marvelUrl + "oauth/authorize/?" + params
   return url
-
-}
-
-function parseAuthCode(url, state){
-
- if (state == getParams(url,"state")){
-   console.log("Your state isn't identical")
-   return nil
- }
-
- return getSearchParams(url, "code")
 
 }
 
@@ -85,7 +79,8 @@ function checkForTokenInUrl(){
 }
 
 // GraphQL
-// Test your query at: https://marvelapp.com/graphql
+// ------------------------------------------------------------
+// Test your query here: https://marvelapp.com/graphql
 
 function projects(){
 
@@ -115,6 +110,7 @@ function projects(){
 }
 
 // Helpers
+// ------------------------------------------------------------
 
 function logout(){
   localStorage.removeItem("accessToken")
@@ -139,10 +135,12 @@ function showLoggedOut(){
 }
 
 // Design
+// ------------------------------------------------------------
 
 $('#connectMarvelButton').attr("href", authorizeUrl("projects:read"))
 
 // Actions
+// ------------------------------------------------------------
 
 $('a[href="#logout"]').click(function(event){
   logout()
@@ -150,6 +148,7 @@ $('a[href="#logout"]').click(function(event){
 });
 
 // Start
+// ------------------------------------------------------------
 
 checkForTokenInUrl()
 
