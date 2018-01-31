@@ -6,18 +6,22 @@ $(function() {
 const marvelUrl = "https://marvelapp.com/"
 const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
 
-// Calls
+// Auth
+
+function state(){
+
+  if (localStorage['state'] === undefined){
+    localStorage['state'] = Math.random().toString(36).substr(2, 16)
+  }
+
+  return localStorage['state']
+
+}
 
 function authorizeUrl(scope){
 
-  // Generate a random state
-  const state = Math.random().toString(36).substr(2, 16)
-
-  // Store the state, as we will need this later to check it matches when returning...
-  localStorage['state'] = state
-
   var params = jQuery.param({
-    state: state,
+    state: state(),
     client_id: clientId,
     response_type: "token",
     scope: scope
@@ -63,7 +67,7 @@ function checkForTokenInUrl(){
 
   // Check if the state is the same
 
-  if (dictionary["state"] != localStorage['state']){
+  if (dictionary["state"] != state()){
     console.log("State is not the same, therefore we can't authenticate...")
     return
   }
@@ -73,12 +77,49 @@ function checkForTokenInUrl(){
   // Store token in session for later use...
   localStorage['accessToken'] = accessToken
 
-  // Redirect to logged in page...
-  document.location.href = "logged-in.html";
+  // Remove hash from the url, we don't want to keep that in there...
+  history.pushState("", document.title, window.location.href.replace(/\#(.+)/, '').replace(/http(s?)\:\/\/([^\/]+)/, '') )
+
+  showLoggedIn()
+
+}
+
+// GraphQL
+// Test your query at: https://marvelapp.com/graphql
+
+function projects(){
+
+  // To keep it clean we stored the graphql query in a different file
+  jQuery.get('graphql/projects.txt', function(data) {
+
+    // Query JSON
+    $.ajax({
+         method: "POST",
+              url: 'https://joe_marvelapp_pie.ngrok.io/',
+              data: JSON.stringify({ "query": data}),
+              headers: {
+                  'Authorization':'Bearer ' + localStorage['accessToken'],
+              },
+              contentType: "application/json",
+              crossDomain:true,
+              success: function(data) {
+                   console.log('data',data);
+              },
+              error: function(err) {
+                   console.log(err);
+              }
+    });
+
+  });
 
 }
 
 // Helpers
+
+function logout(){
+  localStorage.removeItem("accessToken")
+  showLoggedOut()
+}
 
 function getParams(url, k){
  var p={};
@@ -86,10 +127,36 @@ function getParams(url, k){
  return k?p[k]:p;
 }
 
+function showLoggedIn(){
+  $('#loggedIn').show();
+  $('#loggedOut').hide();
+  projects();
+}
+
+function showLoggedOut(){
+  $('#loggedOut').show();
+  $('#loggedIn').hide();
+}
+
+// Design
+
+$('#connectMarvelButton').attr("href", authorizeUrl("projects:read"))
+
+// Actions
+
+$('a[href="#logout"]').click(function(event){
+  logout()
+  event.stopPropagation();
+});
+
 // Start
 
 checkForTokenInUrl()
 
-$('#connectMarvelButton').attr("href", authorizeUrl("user:read"))
+if (localStorage['accessToken'] === undefined){
+  showLoggedOut()
+} else {
+  showLoggedIn()
+}
 
 });

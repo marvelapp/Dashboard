@@ -1,0 +1,28 @@
+query {
+  user {
+    projects(first: 3) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          pk
+          images {
+            edges {
+              node {
+                displayName
+                fileName
+                url
+                width
+                height
+                uuid
+              }
+            }
+          }
+          name
+        }
+      }
+    }
+  }
+}
