@@ -44,20 +44,123 @@ textarea {
     resize: vertical;
 }
 
-.browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
 
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  color: #2A3440;
+  background: white;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+}
+
+p{
+  font-size: 18px;
+  color: #8792A1;
+  line-height: 30px;
+  margin: 20px 0 25px 0;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.button {
+  background: #1FB6FF;
+  padding-left: 35px;
+  padding-right: 35px;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 50px;
+  border-radius: 25px;
+  display: inline-block;
+}
+
+.button:hover {
+  background: #009EEB;
+}
+
+#logo {
+  width: 140px;
+  height: 32px;
+  display: inline-block;
+  background: url('../img/logo.png');
+  margin-bottom: 50px;
+}
+
 #loggedIn {
   display: none;
+  padding: 90px;
+  box-sizing: border-box;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+#loggedIn .flex {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+#loggedIn .header {
+  flex: 0 1 86px;
+}
+
+#loggedIn #lastUpdated {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: center;
+  flex: 1 1 auto;
+}
+
+#loggedOut {
+  box-sizing: border-box;
+  background: white;
+  position: absolute;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.previewColumn {
+  background: #DFC7F0;
+}
+
+.mainColumn .content {
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.imageSlide {
+  width: 339px;
+  height: 532px;
+  box-shadow: 0 2px 12px 0 rgba(12,16,20,0.20);
 }
 
 /* ==========================================================================
@@ -72,6 +175,11 @@ textarea {
        (-o-min-device-pixel-ratio: 5/4),
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
+
+    #logo{
+      background: url('../img/logo@2x.png');
+      background-size: 140px 32px;
+    }
 
 }
 

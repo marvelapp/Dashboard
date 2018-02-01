@@ -6,7 +6,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700" rel="stylesheet">
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
     </head>
@@ -14,14 +14,30 @@
 
         <!--  Logged out  -->
         <div id="loggedOut">
-          <p>Marvel test Application.</p>
-          <a id="connectMarvelButton">Connect with Marvel</a>
+          <div class="column mainColumn" style="height: 100vh">
+
+            <div class="content">
+              <div id="logo"></div>
+              <h1>Share what your design team is working on</h1>
+              <p>Marvel is the world’s most inclusive designed platform - your business can finally</p>
+              <a class="button" id="connectMarvelButton">Sign in with Marvel</a>
+            </div>
+
+          </div>
+          <div class="column previewColumn" style="height: 100vh">
+          </div>
         </div>
 
         <!--  Logged in  -->
         <div id="loggedIn">
-          Logged in
-          <a href="#logout" id="logout">Logout</a>
+          <div class="flex">
+            <div class="header">
+              <h1 style="font-size: 46px;">Last updated projects</h1>
+              <a href="#logout" id="logout">Logout</a>
+            </div>
+            <div id="lastUpdated">
+            </div>
+          </div>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

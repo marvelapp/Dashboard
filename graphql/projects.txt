@@ -8,6 +8,7 @@ query {
       edges {
         node {
           pk
+          lastModified
           images {
             edges {
               node {

@@ -8,7 +8,14 @@ const marvelUrl = "https://marvelapp.com/"
 const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
 
 // Possible values: user:read, projects:read, projects:write, projects:delete
-const scopes = "projects:read"
+// Comma seperated
+const scopes = "projects:read user:read"
+
+// Timer
+// ------------------------------------------------------------
+// Used for updating the projects every 60 seoncds
+
+var timer;
 
 // Auth
 // ------------------------------------------------------------
@@ -94,7 +101,7 @@ function projects(){
     // Query JSON
     $.ajax({
          method: "POST",
-              url: 'https://joe_marvelapp_pie.ngrok.io/',
+              url: marvelUrl + "graphql/",
               data: JSON.stringify({ "query": data}),
               headers: {
                   'Authorization':'Bearer ' + localStorage['accessToken'],
@@ -102,13 +109,42 @@ function projects(){
               contentType: "application/json",
               crossDomain:true,
               success: function(data) {
-                   console.log('data',data);
+                   showLastUpdatedProjects(data)
               },
               error: function(err) {
-                   console.log(err);
+                   logout()
               }
     });
 
+  });
+
+}
+
+function showLastUpdatedProjects(projectJson){
+
+  var images = [];
+
+  // Marvel sorts projects already by last updated...
+  var projects = projectJson["data"]["user"]["projects"]["edges"]
+
+  $.each(projects, function(i, project) {
+    var image = project["node"]["images"]["edges"][0]
+
+    // Not all projects have images
+    if (image){
+      images.push(image["node"]["url"])
+    }
+
+  });
+
+  // Empty
+  $('#lastUpdated').html("");
+
+  // Add Images
+
+  $.each(images, function(i, imageUrl) {
+    const img = "<img class='imageSlide' src='" + imageUrl + "'>"
+    $('#lastUpdated').append(img)
   });
 
 }
@@ -130,12 +166,18 @@ function getParams(url, k){
 function showLoggedIn(){
   $('#loggedIn').show();
   $('#loggedOut').hide();
+
+  // Update projects every 60 seconds
+  clearInterval(timer);
+  timer = setInterval(projects, 60000);
   projects();
+
 }
 
 function showLoggedOut(){
   $('#loggedOut').show();
   $('#loggedIn').hide();
+  clearInterval(timer);
 }
 
 // Design
