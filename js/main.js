@@ -126,7 +126,7 @@ function showLastUpdatedProjects(projectJson){
   var projects = projectJson["data"]["user"]["projects"]["edges"]
 
   // Only first 3 projects
-  projects = projects.slice(0, 2)
+  projects = projects.slice(0, 3)
 
   // Empty
   $('#lastUpdated').html("");

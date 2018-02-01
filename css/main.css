@@ -161,6 +161,7 @@ p{
   flex: 1 1 auto;
   margin: 30px;
   text-align: center;
+  flex-basis: 25%
 }
 
 #lastUpdated div:first-child {
