@@ -122,29 +122,31 @@ function projects(){
 
 function showLastUpdatedProjects(projectJson){
 
-  var images = [];
-
   // Marvel sorts projects already by last updated...
   var projects = projectJson["data"]["user"]["projects"]["edges"]
 
-  $.each(projects, function(i, project) {
-    var image = project["node"]["images"]["edges"][0]
-
-    // Not all projects have images
-    if (image){
-      images.push(image["node"]["url"])
-    }
-
-  });
+  // Only first 3 projects
+  projects = projects.slice(0, 2)
 
   // Empty
   $('#lastUpdated').html("");
 
-  // Add Images
+  $.each(projects, function(i, project) {
 
-  $.each(images, function(i, imageUrl) {
-    const img = "<img class='imageSlide' src='" + imageUrl + "'>"
-    $('#lastUpdated').append(img)
+    var image = project["node"]["images"]["edges"][0]
+
+    // Not all projects have images
+    if (image){
+
+      const width = image["node"]["width"]
+      const height = image["node"]["height"]
+
+      const img = "<div class='flexItem'><img class='imageSlide' src='" + image["node"]["url"] + "'></div>"
+
+      $('#lastUpdated').append(img)
+
+    }
+
   });
 
 }
