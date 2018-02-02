@@ -2,6 +2,8 @@
 A dashboard to show what your design team is working on.
 This project is an example of how to use the Marvel API.
 
+![Marvel Dashboard](/img/GithubImage.png)
+
 ### Run locally
 To keep this example project simple, the project uses Javascript & HTML that doesn't have to be compiled.
 Therefore you can just download the source code and run it straightway without installing dependencies.
