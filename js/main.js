@@ -140,8 +140,17 @@ function showLastUpdatedProjects(projectJson){
 
       const width = image["node"]["width"]
       const height = image["node"]["height"]
+      //
 
-      const img = "<div class='flexItem'><img class='imageSlide' src='" + image["node"]["url"] + "'></div>"
+      const img = "\
+      <div class='flexItem'>\
+        <div class='centerBox'>\
+          <div class='image'>\
+            <img src='" + image["node"]["url"] + "'>\
+          </div>\
+          <div class='footer'>Hello</div>\
+        </div>\
+      </div>"
 
       $('#lastUpdated').append(img)
 

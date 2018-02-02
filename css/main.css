@@ -128,11 +128,7 @@ p{
 
 #loggedIn #lastUpdated {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  align-items: stretch;
-  align-content: center;
+  flex: 1;
 }
 
 #loggedOut {
@@ -148,13 +144,16 @@ p{
   background: #DFC7F0;
 }
 
+.mainColumn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mainColumn .content {
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 .flexItem {
@@ -164,23 +163,41 @@ p{
   flex-basis: 25%
 }
 
+.flexItem .centerBox {
+    max-height: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    position: relative;
+    overflow: hidden;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.flexItem .centerBox .footer {
+  display: block;
+  flex: 0 1 30px;
+}
+
+.flexItem .centerBox .image {
+  display: block;
+}
+
+.flexItem .centerBox .image img {
+  object-fit:contain;
+  max-width: 100%;
+  max-height: 100%;
+  object-position: 0 0;
+  box-shadow: 0 2px 12px 0 rgba(12,16,20,0.20);
+}
+
 #lastUpdated div:first-child {
     margin-left: 0px;
 }
 
 #lastUpdated div:last-child {
     margin-right: 0px;
-}
-
-.imageSlide {
-  box-shadow: 0 2px 12px 0 rgba(12,16,20,0.20);
-  display: inline-block;
-  vertical-align: middle;
-  max-height: 100%;
-  max-width: 100%;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
 /* ==========================================================================
