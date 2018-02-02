@@ -2,6 +2,8 @@
 A dashboard to show what your design team is working on.
 This project is an example of how to use the Marvel API.
 
+[Try it out here](https://marvelapp.github.io/Dashboard/)
+
 ![Marvel Dashboard](/img/GithubImage.png)
 
 ### Run locally
