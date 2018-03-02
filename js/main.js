@@ -1,5 +1,5 @@
 
-$(function() {
+$( document ).ready(function() {
 
 // Constants
 // ------------------------------------------------------------
@@ -70,14 +70,18 @@ function checkForTokenInUrl(){
     }, {}
   )
 
-  // Check if the state is the same
+  const accessToken = dictionary["access_token"];
 
+  // No token in url
+  if (accessToken == null){
+    return
+  }
+
+  // Check if the state is the same
   if (dictionary["state"] != state()){
     console.log("State is not the same, therefore we can't authenticate...")
     return
   }
-
-  const accessToken = dictionary["access_token"];
 
   // Store token in session for later use...
   localStorage['accessToken'] = accessToken
@@ -93,68 +97,201 @@ function checkForTokenInUrl(){
 // ------------------------------------------------------------
 // Test your query here: https://marvelapp.com/graphql
 
+function graphQL(query){
+
+  return $.ajax({
+      method: "POST",
+      url: marvelUrl + "graphql/",
+      data: JSON.stringify({ "query": query}),
+      headers: {
+          'Authorization':'Bearer ' + localStorage['accessToken'],
+      },
+      contentType: "application/json",
+      crossDomain:true
+  });
+
+}
+
 function projects(){
 
-  // To keep it clean we stored the graphql query in a different file
-  jQuery.get('graphql/projects.txt', function(data) {
-
-    // Query JSON
-    $.ajax({
-         method: "POST",
-              url: marvelUrl + "graphql/",
-              data: JSON.stringify({ "query": data}),
-              headers: {
-                  'Authorization':'Bearer ' + localStorage['accessToken'],
-              },
-              contentType: "application/json",
-              crossDomain:true,
-              success: function(data) {
-                   showLastUpdatedProjects(data)
-              },
-              error: function(err) {
-                   logout()
+  const query = `
+      query {
+        user {
+          projects(first: 3) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            edges {
+              node {
+                pk
+                lastModified
+                name
               }
+            }
+          }
+        }
+      }
+  `;
+
+  return graphQL(query);
+
+}
+
+function project(pk){
+
+  var query = `
+      fragment image on ImageScreen {
+        filename
+        url
+        height
+        width
+      }
+
+      query {
+        project(pk: ${pk}) {
+          name
+          screens(first: 100) {
+            edges {
+              node {
+                name
+                modifiedAt
+                content {
+                  __typename
+                  ... image
+                }
+              }
+            }
+          }
+        }
+      }
+  `;
+
+  return graphQL(query);
+
+}
+
+// Find the last updated images
+// ------------------------------------------------------------
+
+function findLastUpdateImages(){
+
+  last3UpdatedProjectsPKs(function(PKs) {
+
+    findImagesForProjectsWithPk(PKs, function(images) {
+
+      // Sort by date
+      var imagesSorted = images.sort(function(a, b) {
+          var dateA = Date.parse(a["modifiedAt"])
+          var dateB = Date.parse(b["modifiedAt"])
+          return dateB.compareTo(dateA)
+      });
+
+      // Remove the ones without content
+      var newArray = imagesSorted.filter(function (image) {
+          if (image["content"]["url"]){
+            return true
+          }
+          return false
+      });
+
+      showLastUpdatedImages(images)
+
     });
 
   });
 
 }
 
-function showLastUpdatedProjects(projectJson){
+function last3UpdatedProjectsPKs(callback){
 
-  // Marvel sorts projects already by last updated...
-  var projects = projectJson["data"]["user"]["projects"]["edges"]
+  $.when(
+    projects()
+  ).then(function(projectJson) {
 
-  // Only first 3 projects
-  projects = projects.slice(0, 3)
+    // All images found throughout projects
+    var projectPKs = []
+
+    // Marvel sorts projects already by last updated...
+    var projects = projectJson["data"]["user"]["projects"]["edges"]
+
+    // Only first 3 projects
+    projects = projects.slice(0, 3)
+
+    $.each(projects, function(i, project) {
+
+      var pk = project["node"]["pk"]
+
+      if (pk){
+        projectPKs.push(pk);
+      }
+
+    });
+
+    callback(projectPKs)
+
+  });
+
+}
+
+function findImagesForProjectsWithPk(PKs, callback){
+
+    // All images found throughout projects
+    var images = []
+
+    // All calls
+    var deferreds = [];
+
+    $.each(PKs, function(i, pk) {
+
+        deferreds.push(
+
+          project(pk).then(function(result) {
+
+            var projectName = result["data"]["project"]["name"]
+            var nodes = result["data"]["project"]["screens"]["edges"]
+
+            $.each(nodes, function(i, node) {
+
+              var dictionary = node["node"];
+              dictionary["projectName"] = projectName
+              images.push(dictionary)
+
+            });
+
+          })
+
+        );
+
+    })
+
+    $.when.apply($, deferreds).then(function() {
+      callback(images)
+    });
+
+}
+
+function showLastUpdatedImages(images){
 
   // Empty
   $('#lastUpdated').html("");
 
-  $.each(projects, function(i, project) {
+  const first3Images = images.slice(0, 3);
 
-    var image = project["node"]["images"]["edges"][0]
+  $.each(first3Images, function(i, image) {
 
-    // Not all projects have images
-    if (image){
-
-      const width = image["node"]["width"]
-      const height = image["node"]["height"]
-      //
-
-      const img = "\
-      <div class='flexItem'>\
-        <div class='centerBox'>\
-          <div class='image'>\
-            <img src='" + image["node"]["url"] + "'>\
-          </div>\
-          <div class='footer'>Hello</div>\
-        </div>\
-      </div>"
-
+      console.log(image);
+      const img = `
+        <div class='flexItem'>
+          <div class='centerBox'>
+            <div class='image'>
+              <img src='${image["content"]["url"]}'>
+            </div>
+            <div class='footer'>${image["projectName"]}</div>
+          </div>
+        </div>
+      `
       $('#lastUpdated').append(img)
-
-    }
 
   });
 
@@ -180,8 +317,8 @@ function showLoggedIn(){
 
   // Update projects every 60 seconds
   clearInterval(timer);
-  timer = setInterval(projects, 60000);
-  projects();
+  timer = setInterval(findLastUpdateImages, 60000);
+  findLastUpdateImages()
 
 }
 
