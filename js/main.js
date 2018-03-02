@@ -280,7 +280,6 @@ function showLastUpdatedImages(images){
 
   $.each(first3Images, function(i, image) {
 
-      console.log(image);
       const img = `
         <div class='flexItem'>
           <div class='centerBox'>
