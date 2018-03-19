@@ -9,7 +9,7 @@ const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
 
 // Possible values: user:read, projects:read, projects:write, projects:delete
 // Comma seperated
-const scopes = "projects:read user:read"
+const scopes = "projects:read user:read company.projects:read company:read"
 
 // Timer
 // ------------------------------------------------------------
@@ -93,6 +93,7 @@ function checkForTokenInUrl(){
 
 }
 
+
 // GraphQL
 // ------------------------------------------------------------
 // Test your query here: https://marvelapp.com/graphql
@@ -112,21 +113,25 @@ function graphQL(query){
 
 }
 
-function projects(){
+function companyProjects(){
 
   const query = `
       query {
-        user {
-          projects(first: 3) {
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-            edges {
-              node {
-                pk
-                lastModified
-                name
+          user {
+            email
+            username
+            company{
+              projects(first: 20) {
+              pageInfo {
+                hasNextPage
+                endCursor
+              }
+              edges {
+                node {
+                  pk
+                  lastModified
+                  name
+                }
               }
             }
           }
@@ -187,15 +192,26 @@ function findLastUpdateImages(){
           return dateB.compareTo(dateA)
       });
 
-      // Remove the ones without content
+
+      // Remove the ones without content and example images
       var newArray = imagesSorted.filter(function (image) {
-          if (image["content"]["url"]){
-            return true
+
+          if (image["content"] == null){
+            return false
           }
-          return false
+
+          if (image["content"]["url"] == null){
+            return false
+          }
+
+          if(image["content"]["url"].indexOf("marvelapp.com/static/assets/images/onboarding") != -1){
+             return false
+          }
+
+          return true
       });
 
-      showLastUpdatedImages(images)
+      showLastUpdatedImages(newArray)
 
     });
 
@@ -206,17 +222,17 @@ function findLastUpdateImages(){
 function last3UpdatedProjectsPKs(callback){
 
   $.when(
-    projects()
+    companyProjects()
   ).then(function(projectJson) {
 
     // All images found throughout projects
     var projectPKs = []
 
-    // Marvel sorts projects already by last updated...
-    var projects = projectJson["data"]["user"]["projects"]["edges"]
+    console.log(projectJson)
 
-    // Only first 3 projects
-    projects = projects.slice(0, 3)
+
+    // Marvel sorts projects already by last updated...
+    var projects = projectJson["data"]["user"]["company"]["projects"]["edges"]
 
     $.each(projects, function(i, project) {
 
