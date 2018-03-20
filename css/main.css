@@ -91,6 +91,56 @@ p{
   margin-left: -2px;
 }
 
+/* Particles */
+
+.particles{
+  width: 1012px;
+  height: 500px;
+  display: block;
+  left: 50%;
+  margin-left: -506px;
+  top: 0;
+  position: absolute;
+}
+
+.particles .square-red{
+  position: relative;
+  left: 140px;
+  top: -7px;
+  transform: rotate(-330deg);
+}
+
+.particles .square-blue{
+  animation-delay: 0.2s;
+  position: relative;
+  left: -62px;
+  top: 110px;
+  transform: rotate(-30deg);
+}
+
+.particles .triangle-green{
+  animation-delay: 0.3s;
+  position: relative;
+  left: 981px;
+  top: 380px;
+  transform: rotate(-315deg);
+}
+
+.particles .triangle-yellow{
+  animation-delay: 0.4s;
+  position: relative;
+  left: 865px;
+  top: 100px;
+  transform: rotate(-30deg);
+}
+
+.particles .circle-blue{
+  animation-delay: 0.3s;
+  position: relative;
+  left: 787px;
+  top: 522px;
+}
+
 /* Preview */
 
 .preview{
@@ -189,16 +239,12 @@ p{
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 35em) {
-
-}
-
 @media print,
        (-o-min-device-pixel-ratio: 5/4),
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
 
-    .logo{
+    .header .logo{
       background: url('../img/logo@2x.png');
       background-size: 156px 24px;
     }
@@ -208,6 +254,34 @@ p{
       background-size: 142px 24px;
     }
 
+}
+
+/* ==========================================================================
+   Animation classes
+   ========================================================================== */
+
+.floating{
+    float: left;
+    -webkit-animation-name: Floatingx;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -moz-animation-name: Floating;
+    -moz-animation-duration: 3s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes Floatingx{
+    from {-webkit-transform-origin: 0 0px;}
+    65% {-webkit-transform-origin: 0 15px;}
+    to {-webkit-transform-origin: 0 -0px;}
+}
+
+@-moz-keyframes Floating{
+    from {-moz-transform-origin: 0, 0px;}
+    65% {-moz-transform-origin: 0, 15px;}
+    to {-moz-transform-origin: 0, -0px;}
 }
 
 /* ==========================================================================
