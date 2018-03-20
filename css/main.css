@@ -91,11 +91,43 @@ p{
   margin-left: -2px;
 }
 
+/* Marvel Integration Badge */
+
+.marvel-integration-badge{
+  width: 133px;
+  height: 36px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: #8792A1;
+  display: block;
+  top: 0;
+  position: absolute;
+  right: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  justify-content: space-around;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 2px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.marvel-integration-badge:hover{
+  background: #727B87;
+}
+
+.marvel-integration-badge .marvel-logo{
+  margin-top: 5px;
+}
+
 /* Particles */
 
 .particles{
   width: 1012px;
-  height: 500px;
+  height: 0px;
   display: block;
   left: 50%;
   margin-left: -506px;
