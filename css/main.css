@@ -148,12 +148,25 @@ p{
   background: #EEF1F5;
   margin-left: auto;
   margin-right: auto;
-  width: 1012px;
-  height: 500px;
+  max-width: 1012px;
+  height: 600px;
   margin-top: 94px;
   display: block;
   border-radius: 5px;
   box-shadow: 0 2px 12px 0 rgba(12,16,20,0.20);
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+}
+
+.preview .navbar{
+  height: 15px;
+  padding: 8px;
+}
+
+.preview .screen{
+  background: #fff;
+  flex: 2;
 }
 
 
