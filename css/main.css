@@ -139,6 +139,7 @@ p{
   position: relative;
   left: 787px;
   top: 522px;
+  transform: rotate(-30deg);
 }
 
 /* Preview */
