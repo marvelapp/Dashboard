@@ -1,4 +1,4 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
+@import url('https://rsms.me/inter/inter-ui.css');
 
 html {
     color: #222;
@@ -6,75 +6,28 @@ html {
     line-height: 1.4;
 }
 
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
-::selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-    vertical-align: middle;
-}
-
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
-textarea {
-    resize: vertical;
-}
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter UI', sans-serif;
   -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-  color: #2A3440;
+  color: #8792A1;
   background: white;
 }
 
 h1 {
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 64px;
+  font-weight: 700;
+  color: #24292E;
   margin: 0;
+  line-height: 78px;
 }
 
 p{
-  font-size: 18px;
+  font-size: 21px;
+  line-height: 35px;
   color: #8792A1;
-  line-height: 30px;
-  margin: 20px 0 25px 0;
 }
 
-.column {
-    float: left;
-    width: 50%;
-}
-
-/* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
@@ -82,29 +35,86 @@ p{
 }
 
 .button {
-  background: #1FB6FF;
-  padding-left: 35px;
-  padding-right: 35px;
+  background: #3E71FF;
+  padding-left: 32px;
+  padding-right: 32px;
   text-decoration: none;
   color: white;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 50px;
-  border-radius: 25px;
+  border-radius: 5px;
   display: inline-block;
 }
 
 .button:hover {
-  background: #009EEB;
+  background: #3E71CD;
 }
 
-#logo {
-  width: 140px;
-  height: 32px;
+/* Header */
+
+.header{
+ max-width: 835px;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 26px;
+}
+
+.header .logo{
+  width: 156px;
+  height: 24px;
   display: inline-block;
   background: url('../img/logo.png');
   margin-bottom: 50px;
 }
+
+.header p{
+  max-width: 500px;
+  padding-bottom: 10px;
+}
+
+.header .actions .chrome-support{
+  display: inline-block;
+  font-size: 14px;
+  color: #8792A1;
+  margin-left: 32px;
+  position: absolute;
+  margin-top: 4px;
+}
+
+.header .actions .chrome-support .chromecast-logo{
+  background: url('../img/logo-chromecast.png');
+  width: 142px;
+  height: 24px;
+  display: inline-block;
+  margin-top: 1px;
+  margin-left: -2px;
+}
+
+/* Preview */
+
+.preview{
+  background: #EEF1F5;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1012px;
+  height: 500px;
+  margin-top: 94px;
+  display: block;
+  border-radius: 5px;
+  box-shadow: 0 2px 12px 0 rgba(12,16,20,0.20);
+}
+
+
+/* Logged Out Page */
+
+#loggedOut {
+  box-sizing: border-box;
+  background: white;
+  padding: 90px;
+}
+
+/* Logged In Page */
 
 #loggedIn {
   display: none;
@@ -129,31 +139,6 @@ p{
 #loggedIn #lastUpdated {
   display: flex;
   flex: 1;
-}
-
-#loggedOut {
-  box-sizing: border-box;
-  background: white;
-  position: absolute;
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-.previewColumn {
-  background: #DFC7F0;
-}
-
-.mainColumn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mainColumn .content {
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .flexItem {
@@ -213,9 +198,14 @@ p{
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
 
-    #logo{
+    .logo{
       background: url('../img/logo@2x.png');
-      background-size: 140px 32px;
+      background-size: 156px 24px;
+    }
+
+    .header .actions .chrome-support .chromecast-logo{
+      background: url('../img/logo-chromecast@2x.png');
+      background-size: 142px 24px;
     }
 
 }
