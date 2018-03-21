@@ -12,6 +12,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
   color: #8792A1;
   background: white;
+  padding: 90px 90px 0px 90px;
 }
 
 h1 {
@@ -233,36 +234,24 @@ p{
   flex-grow: 2;
 }
 
-.last-updated-header .marvel-logo{
-}
+/* ==========================================================================
+   Last Updated Header
+   ========================================================================== */
 
 
 
-/* Logged Out Page */
 
-#loggedOut {
-  box-sizing: border-box;
-  background: white;
-  padding: 90px;
-}
+
+
 
 
 /* Logged In Page */
-
-#loggedIn {
-  display: none;
-  padding: 90px;
-  box-sizing: border-box;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-}
 
 #loggedIn .flex {
   display: flex;
   flex-flow: column;
   height: 100%;
-  justify-content: space-between
+  justify-content: space-between;
 }
 
 #loggedIn .header {
@@ -371,12 +360,208 @@ p{
 }
 
 /* ==========================================================================
+   Loader
+   ========================================================================== */
+
+#loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  text-align: center;
+  z-index: 5;
+}
+
+#loader .spinner {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+#loader .spinner:before, .spinner-eff:after {
+ content: "";
+ display: block;
+}
+
+#loader .spinner .spinner-bar:before, .spinner .spinner-bar:after {
+ content: "";
+ display: block;
+}
+
+#loader .spinner .ellipse {
+  width: 100%;
+  height: 100%;
+  background-color: #3E71FF;
+  border-radius: 50%;
+  -webkit-animation: ellipse-animation 2.4s cubic-bezier(0, -0.26, 0.32, 1.22) 0s infinite;
+          animation: ellipse-animation 2.4s cubic-bezier(0, -0.26, 0.32, 1.22) 0s infinite;
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+@-webkit-keyframes ellipse-animation {
+  0% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  12.5% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  25% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  37.5% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  50% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  62.5% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(225deg);
+            transform: rotate(225deg);
+  }
+  75% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+  87.5% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(315deg);
+            transform: rotate(315deg);
+  }
+  100% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes ellipse-animation {
+  0% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  12.5% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+  }
+  25% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+  37.5% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+  }
+  50% {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  62.5% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(225deg);
+            transform: rotate(225deg);
+  }
+  75% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(270deg);
+            transform: rotate(270deg);
+  }
+  87.5% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 0;
+    -webkit-transform: rotate(315deg);
+            transform: rotate(315deg);
+  }
+  100% {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
    Helper classes
    ========================================================================== */
 
 .hidden {
     display: none !important;
     visibility: hidden;
+}
+
+.border-box {
+  box-sizing: border-box;
 }
 
 .visuallyhidden {

@@ -89,10 +89,11 @@ function checkForTokenInUrl(){
   // Remove hash from the url, we don't want to keep that in there...
   history.pushState("", document.title, window.location.href.replace(/\#(.+)/, '').replace(/http(s?)\:\/\/([^\/]+)/, '') )
 
-  showLoggedIn()
+  showLoader()
+  setupTimer()
+  findLastUpdateImages()
 
 }
-
 
 // GraphQL
 // ------------------------------------------------------------
@@ -212,6 +213,7 @@ function findLastUpdateImages(){
       });
 
       showLastUpdatedImages(newArray)
+      showLoggedIn()
 
     });
 
@@ -326,20 +328,28 @@ function getParams(url, k){
  return k?p[k]:p;
 }
 
-function showLoggedIn(){
-  $('#loggedIn').show();
-  $('#loggedOut').hide();
-
+function setupTimer(){
   // Update projects every 60 seconds
   clearInterval(timer);
   timer = setInterval(findLastUpdateImages, 60000);
-  findLastUpdateImages()
+}
 
+function showLoggedIn(){
+  $('#loggedIn').removeClass("hidden");
+  $('#loggedOut').addClass("hidden");
+  $('#loader').addClass("hidden");
+}
+
+function showLoader(){
+  $('#loggedIn').addClass("hidden");
+  $('#loggedOut').addClass("hidden");
+  $('#loader').removeClass("hidden");
 }
 
 function showLoggedOut(){
-  $('#loggedOut').show();
-  $('#loggedIn').hide();
+  $('#loggedIn').addClass("hidden");
+  $('#loggedOut').removeClass("hidden");
+  $('#loader').addClass("hidden");
   clearInterval(timer);
 }
 
@@ -359,12 +369,14 @@ $('a[href="#logout"]').click(function(event){
 // Start
 // ------------------------------------------------------------
 
-checkForTokenInUrl()
-
 if (localStorage['accessToken'] === undefined){
   showLoggedOut()
 } else {
-  showLoggedIn()
+  showLoader()
+  setupTimer()
+  findLastUpdateImages()
 }
+
+checkForTokenInUrl()
 
 });
