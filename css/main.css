@@ -51,7 +51,9 @@ p{
   background: #3E71CD;
 }
 
-/* Header */
+/* ==========================================================================
+   Header
+   ========================================================================== */
 
 .header{
  max-width: 835px;
@@ -91,7 +93,9 @@ p{
   margin-left: -2px;
 }
 
-/* Marvel Integration Badge */
+/* ==========================================================================
+   Marvel Integration Badge
+   ========================================================================== */
 
 .marvel-integration-badge{
   width: 133px;
@@ -123,7 +127,9 @@ p{
   margin-top: 5px;
 }
 
-/* Particles */
+/* ==========================================================================
+   Particles
+   ========================================================================== */
 
 .particles{
   width: 1012px;
@@ -174,7 +180,9 @@ p{
   transform: rotate(-30deg);
 }
 
-/* Preview */
+/* ==========================================================================
+   Preview
+   ========================================================================== */
 
 .preview{
   background: #EEF1F5;
@@ -201,6 +209,34 @@ p{
   flex: 2;
 }
 
+/* ==========================================================================
+   Logout (Should be settings icons in the future)
+   ========================================================================== */
+
+.logout-link{
+  text-decoration: none;
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
+}
+
+/* ==========================================================================
+   Last Updated Header
+   ========================================================================== */
+
+.last-updated-header{
+  display: flex;
+  align-items: center;
+}
+
+.last-updated-header .copy{
+  flex-grow: 2;
+}
+
+.last-updated-header .marvel-logo{
+}
+
+
 
 /* Logged Out Page */
 
@@ -209,6 +245,7 @@ p{
   background: white;
   padding: 90px;
 }
+
 
 /* Logged In Page */
 
@@ -251,7 +288,6 @@ p{
     flex-direction: column;
     vertical-align: middle;
     position: relative;
-    overflow: hidden;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -259,6 +295,10 @@ p{
 .flexItem .centerBox .footer {
   display: block;
   flex: 0 1 30px;
+  text-align: left;
+  font-size: 20px;
+  margin-top: 10px;
+  color: #222D39;
 }
 
 .flexItem .centerBox .image {
