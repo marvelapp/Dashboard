@@ -4,12 +4,19 @@ $( document ).ready(function() {
 // Constants
 // ------------------------------------------------------------
 
-const marvelUrl = "https://marvelapp.com/"
-const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF"
+const marvelUrl = "https://marvelapp.com/";
+const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF";
 
 // Possible values: user:read, projects:read, projects:write, projects:delete
 // Comma seperated
-const scopes = "projects:read user:read company.projects:read company:read"
+const scopes = "projects:read user:read company.projects:read company:read";
+
+// Errors
+var Error = {
+    NO_COMPANY : 1,
+    NO_PROJECTS : 2,
+    NO_IMAGES : 3,
+};
 
 // Timer
 // ------------------------------------------------------------
@@ -144,6 +151,34 @@ function companyProjects(){
 
 }
 
+function personalProjects(){
+
+  const query = `
+      query {
+          user {
+            email
+            username
+            projects(first: 20) {
+              pageInfo {
+                hasNextPage
+                endCursor
+              }
+              edges {
+                node {
+                  pk
+                  lastModified
+                  name
+                }
+              }
+            }
+        }
+    }
+  `;
+
+  return graphQL(query);
+
+}
+
 function project(pk){
 
   var query = `
@@ -182,7 +217,16 @@ function project(pk){
 
 function findLastUpdateImages(){
 
-  last3UpdatedProjectsPKs(function(PKs) {
+  lastCompanyProjectsPKs(function(PKs, error) {
+
+    // Check for errors
+    if (error == Error.NO_PROJECTS){
+      showError("No projects found in your Marvel account...");
+      return
+    } else if (error == Error.NO_COMPANY) {
+      showError("You have to be on a company plan to use this...");
+      return
+    }
 
     findImagesForProjectsWithPk(PKs, function(images) {
 
@@ -192,7 +236,6 @@ function findLastUpdateImages(){
           var dateB = Date.parse(b["modifiedAt"])
           return dateB.compareTo(dateA)
       });
-
 
       // Remove the ones without content and example images
       var newArray = imagesSorted.filter(function (image) {
@@ -212,7 +255,12 @@ function findLastUpdateImages(){
           return true
       });
 
-      showLastUpdatedImages(newArray)
+      if (newArray.length == 0){
+        showError("There are no images inside your projects.");
+        return
+      }
+
+      showImages(newArray)
       showLoggedIn()
 
     });
@@ -221,7 +269,7 @@ function findLastUpdateImages(){
 
 }
 
-function last3UpdatedProjectsPKs(callback){
+function lastCompanyProjectsPKs(callback, error){
 
   $.when(
     companyProjects()
@@ -230,11 +278,20 @@ function last3UpdatedProjectsPKs(callback){
     // All images found throughout projects
     var projectPKs = []
 
-    console.log(projectJson)
-
-
     // Marvel sorts projects already by last updated...
-    var projects = projectJson["data"]["user"]["company"]["projects"]["edges"]
+    var company = projectJson["data"]["user"]["company"]
+
+    // Check if company exists
+    if (company == null){
+      callback(null, Error.NO_COMPANY)
+    }
+
+    var projects = company["projects"]["edges"]
+
+    // Check if there are projects
+    if (projects.length == 0){
+      callback(null, Error.NO_PROJECTS)
+    }
 
     $.each(projects, function(i, project) {
 
@@ -246,7 +303,7 @@ function last3UpdatedProjectsPKs(callback){
 
     });
 
-    callback(projectPKs)
+    callback(projectPKs, null)
 
   });
 
@@ -289,7 +346,7 @@ function findImagesForProjectsWithPk(PKs, callback){
 
 }
 
-function showLastUpdatedImages(images){
+function showImages(images){
 
   // Empty
   $('#lastUpdated').html("");
@@ -334,22 +391,33 @@ function setupTimer(){
   timer = setInterval(findLastUpdateImages, 60000);
 }
 
+// States
+// ------------------------------------------------------------
+
 function showLoggedIn(){
   $('#loggedIn').removeClass("hidden");
   $('#loggedOut').addClass("hidden");
   $('#loader').addClass("hidden");
+  $('#error').addClass("hidden");
 }
 
 function showLoader(){
   $('#loggedIn').addClass("hidden");
   $('#loggedOut').addClass("hidden");
   $('#loader').removeClass("hidden");
+  $('#error').removeClass("hidden");
+}
+
+function showError(message){
+  $('#error').removeClass("hidden");
+  $('#error p').html(message);
 }
 
 function showLoggedOut(){
   $('#loggedIn').addClass("hidden");
   $('#loggedOut').removeClass("hidden");
   $('#loader').addClass("hidden");
+  $('#error').addClass("hidden");
   clearInterval(timer);
 }
 
