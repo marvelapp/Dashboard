@@ -3,9 +3,11 @@
 const concat = require('gulp-concat'),
       gulp = require('gulp'),
       rename = require('gulp-rename'),
-      uglify = require('gulp-uglify'),
       sass = require('gulp-sass'),
-      autoprefixer = require('gulp-autoprefixer');
+      gutil = require('gulp-util'),
+      autoprefixer = require('gulp-autoprefixer'),
+      babel = require('gulp-babel'),
+      connect = require('gulp-connect');
 
 const paths = {
       js: 'assets/js/*.js',
@@ -21,12 +23,13 @@ function sassify() {
 gulp.task('build:js', function() {
     return gulp.src(paths.js)
         .pipe(concat('main.min.js'))
-        .pipe(uglify())
-        .on('error', function(err){
-            console.log(err);
-        })
+        .pipe(babel({
+    			presets: ["babel-preset-es2015", "babel-preset-es2016", "babel-preset-es2017"]
+    		}))
+        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(rename({dirname: '/'}))
-        .pipe(gulp.dest('assets/'));
+        .pipe(gulp.dest('assets/'))
+        .pipe(connect.reload())
 });
 
 gulp.task('build:css', () => (
@@ -36,6 +39,7 @@ gulp.task('build:css', () => (
             browsers: ['last 2 versions']
         }))
         .pipe(gulp.dest('assets/'))
+        .pipe(connect.reload())
 ));
 
 gulp.task('watch:js', () => {
@@ -46,4 +50,10 @@ gulp.task('watch:css', () => {
     gulp.watch(paths.css, ['build:css']);
 });
 
-gulp.task('default', [ 'build:css', 'build:js', 'watch:js', 'watch:css' ]);
+gulp.task('webserver', function() {
+  connect.server({
+    livereload: true
+  });
+});
+
+gulp.task('default', [ 'build:css', 'build:js', 'watch:js', 'watch:css', 'webserver']);

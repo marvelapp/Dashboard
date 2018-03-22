@@ -1,15 +1,15 @@
 (function($) {
 	$(document).ready(function(){
 
-		// Constants
+		// varants
 		// ------------------------------------------------------------
 
-		const marvelUrl = "https://marvelapp.com/";
-		const clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF";
+		var marvelUrl = "https://marvelapp.com/";
+		var clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF";
 
 		// Possible values: user:read, projects:read, projects:write, projects:delete
 		// Comma seperated
-		const scopes = "projects:read user:read company.projects:read company:read";
+		var scopes = "projects:read user:read company.projects:read company:read";
 
 		// Errors
 		var Error = {
@@ -77,7 +77,7 @@
 		    }, {}
 		  )
 
-		  const accessToken = dictionary["access_token"];
+		  var accessToken = dictionary["access_token"];
 
 		  // No token in url
 		  if (accessToken == null){
@@ -123,29 +123,29 @@
 
 		function companyProjects(){
 
-		  const query = `
-		      query {
-		          user {
-		            email
-		            username
-		            company{
-		              projects(first: 20) {
-		              pageInfo {
-		                hasNextPage
-		                endCursor
-		              }
-		              edges {
-		                node {
-		                  pk
-		                  lastModified
-		                  name
-		                }
-		              }
-		            }
-		          }
-		        }
-		      }
-		  `;
+		  var query = " \
+		      query { \
+		          user { \
+		            email \
+		            username \
+		            company{ \
+		              projects(first: 20) { \
+		              pageInfo { \
+		                hasNextPage \
+		                endCursor \
+		              } \
+		              edges { \
+		                node { \
+		                  pk \
+		                  lastModified \
+		                  name \
+		                } \
+		              } \
+		            } \
+		          } \
+		        } \
+		      } \
+		  ";
 
 		  return graphQL(query);
 
@@ -153,60 +153,61 @@
 
 		function personalProjects(){
 
-		  const query = `
-		      query {
-		          user {
-		            email
-		            username
-		            projects(first: 20) {
-		              pageInfo {
-		                hasNextPage
-		                endCursor
-		              }
-		              edges {
-		                node {
-		                  pk
-		                  lastModified
-		                  name
-		                }
-		              }
-		            }
-		        }
-		    }
-		  `;
+		  var query = " \
+		      query { \
+		          user { \
+		            email \
+		            username \
+		            projects(first: 20) { \
+		              pageInfo { \
+		                hasNextPage \
+		                endCursor \
+		              } \
+		              edges { \
+		                node { \
+		                  pk \
+		                  lastModified \
+		                  name \
+		                } \
+		              } \
+		            } \
+		        } \
+		    } \
+		  ";
 
 		  return graphQL(query);
 
 		}
 
+		
 		function project(pk){
 
-		  var query = `
-		      fragment image on ImageScreen {
-		        filename
-		        url
-		        height
-		        width
-		      }
-
-		      query {
-		        project(pk: ${pk}) {
-		          name
-		          screens(first: 100) {
-		            edges {
-		              node {
-		                name
-		                modifiedAt
-		                content {
-		                  __typename
-		                  ... image
-		                }
-		              }
-		            }
-		          }
-		        }
-		      }
-		  `;
+		  var query = " \
+		      fragment image on ImageScreen { \
+		        filename \
+		        url \
+		        height \
+		        width \
+		      } \
+					\
+		      query { \
+		        project(pk: ${pk}) { \
+		          name \
+		          screens(first: 100) { \
+		            edges { \
+		              node { \
+		                name \
+		                modifiedAt \
+		                content { \
+		                  __typename \
+		                  ... image \
+		                } \
+		              } \
+		            } \
+		          } \
+		        } \
+		      } \
+		  ";
 
 		  return graphQL(query);
 
@@ -351,20 +352,20 @@
 		  // Empty
 		  $('#lastUpdated').html("");
 
-		  const first3Images = images.slice(0, 3);
+		  var first3Images = images.slice(0, 3);
 
 		  $.each(first3Images, function(i, image) {
 
-		      const img = `
-		        <div class='flexItem'>
-		          <div class='centerBox'>
-		            <div class='image'>
-		              <img src='${image["content"]["url"]}'>
-		            </div>
-		            <div class='footer'>${image["projectName"]}</div>
-		          </div>
-		        </div>
-		      `
+		      var img = ""
+					img += "<div class='flexItem'>";
+					img += "<div class='centerBox'>";
+					img += "<div class='image'>";
+					img += "<img src='" + image["content"]['url'] + "'>";
+					img += "</div>";
+					img += "<div class='footer'>" + image['projectName'] + "</div>";
+					img += "</div>"
+					img += "</div>"
+
 		      $('#lastUpdated').append(img)
 
 		  });
