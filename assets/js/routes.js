@@ -179,7 +179,7 @@
 
 		}
 
-
+		
 		function project(pk){
 
 		  var query = " \
@@ -449,13 +449,19 @@
 		checkForTokenInUrl()
 
 
-		//let p = new Home();
 
+		/*
+		FastClick.attach(document.body);
+		var rellax = new Rellax('.js-parallax');
 
-		//var div = document.getElementById('root');
-		//div.innerHTML = p.render();
-
-
-
+		$(window).scroll(function(){
+			var scrollTop = $(window).scrollTop();
+			console.log('1 - (scroll/10)', 1 - (scrollTop/500));
+			var opacity = (1 - (scrollTop/500) > 0) ? 1 - (scrollTop/500) : 0;
+			// $('.js-heading').css({
+			// 	'opacity': opacity,
+			// });
+		});
+		*/
 	});
 })(jQuery);

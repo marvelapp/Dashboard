@@ -24,7 +24,7 @@ gulp.task('build:js', function() {
     return gulp.src(paths.js)
         .pipe(concat('main.min.js'))
         .pipe(babel({
-    			presets: ["babel-preset-es2015", "babel-preset-es2016", "babel-preset-es2017"]
+    			presets: ["env"]
     		}))
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(rename({dirname: '/'}))

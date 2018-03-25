@@ -67,7 +67,7 @@ p{
   width: 156px;
   height: 24px;
   display: inline-block;
-  background: url('../img/logo.png');
+  background: url('images/logo.png');
   margin-bottom: 50px;
 }
 
@@ -86,7 +86,7 @@ p{
 }
 
 .header .actions .chrome-support .chromecast-logo{
-  background: url('../img/logo-chromecast.png');
+  background: url('images/logo-chromecast.png');
   width: 142px;
   height: 24px;
   display: inline-block;
@@ -320,12 +320,12 @@ p{
        (min-resolution: 120dpi) {
 
     .header .logo{
-      background: url('../img/logo@2x.png');
+      background: url('images/logo@2x.png');
       background-size: 156px 24px;
     }
 
     .header .actions .chrome-support .chromecast-logo{
-      background: url('../img/logo-chromecast@2x.png');
+      background: url('images/logo-chromecast@2x.png');
       background-size: 142px 24px;
     }
 
