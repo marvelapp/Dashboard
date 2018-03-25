@@ -123,29 +123,29 @@
 
 		function companyProjects(){
 
-		  var query = " \
-		      query { \
-		          user { \
-		            email \
-		            username \
-		            company{ \
-		              projects(first: 20) { \
-		              pageInfo { \
-		                hasNextPage \
-		                endCursor \
-		              } \
-		              edges { \
-		                node { \
-		                  pk \
-		                  lastModified \
-		                  name \
-		                } \
-		              } \
-		            } \
-		          } \
-		        } \
-		      } \
-		  ";
+		  var query = `
+		      query {
+		          user {
+		            email
+		            username
+		            company{
+		              projects(first: 20) {
+		              pageInfo {
+		                hasNextPage
+		                endCursor
+		              }
+		              edges {
+		                node {
+		                  pk
+		                  lastModified
+		                  name
+		                }
+		              }
+		            }
+		          }
+		        }
+		      }
+		  `;
 
 		  return graphQL(query);
 
@@ -153,27 +153,27 @@
 
 		function personalProjects(){
 
-		  var query = " \
-		      query { \
-		          user { \
-		            email \
-		            username \
-		            projects(first: 20) { \
-		              pageInfo { \
-		                hasNextPage \
-		                endCursor \
-		              } \
-		              edges { \
-		                node { \
-		                  pk \
-		                  lastModified \
-		                  name \
-		                } \
-		              } \
-		            } \
-		        } \
-		    } \
-		  ";
+		  var query = `
+		      query {
+		          user {
+		            email
+		            username
+		            projects(first: 20) {
+		              pageInfo {
+		                hasNextPage
+		                endCursor
+		              }
+		              edges {
+		                node {
+		                  pk
+		                  lastModified
+		                  name
+		                }
+		              }
+		            }
+		        }
+		    }
+		  `;
 
 		  return graphQL(query);
 
@@ -182,32 +182,32 @@
 
 		function project(pk){
 
-		  var query = " \
-		      fragment image on ImageScreen { \
-		        filename \
-		        url \
-		        height \
-		        width \
-		      } \
-					\
-		      query { \
-		        project(pk: ${pk}) { \
-		          name \
-		          screens(first: 100) { \
-		            edges { \
-		              node { \
-		                name \
-		                modifiedAt \
-		                content { \
-		                  __typename \
-		                  ... image \
-		                } \
-		              } \
-		            } \
-		          } \
-		        } \
-		      } \
-		  ";
+		  var query = `
+		      fragment image on ImageScreen {
+		        filename
+		        url
+		        height
+		        width
+		      }
+
+		      query {
+		        project(pk: ${pk}) {
+		          name
+		          screens(first: 100) {
+		            edges {
+		              node {
+		                name
+		                modifiedAt
+		                content {
+		                  __typename
+		                  ... image
+		                }
+		              }
+		            }
+		          }
+		        }
+		      }
+		  `;
 
 		  return graphQL(query);
 
