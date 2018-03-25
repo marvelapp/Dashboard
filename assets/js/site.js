@@ -1,15 +1,7 @@
 (function($) {
 	$(document).ready(function(){
 
-		// varants
-		// ------------------------------------------------------------
-
-		var marvelUrl = "https://marvelapp.com/";
-		var clientId = "PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF";
-
-		// Possible values: user:read, projects:read, projects:write, projects:delete
-		// Comma seperated
-		var scopes = "projects:read user:read company.projects:read company:read";
+		var marvelGraphQL = new MarvelGraphQL("PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF", "projects:read user:read company.projects:read company:read", state())
 
 		// Errors
 		var Error = {
@@ -18,42 +10,21 @@
 		    NO_IMAGES : 3,
 		};
 
+		function state(){
+
+			if (localStorage['state'] === undefined){
+				localStorage['state'] = Math.random().toString(36).substr(2, 16)
+			}
+
+			return localStorage['state'];
+
+		};
+
 		// Timer
 		// ------------------------------------------------------------
 		// Used for updating the projects every 60 seoncds
 
 		var timer;
-
-		// Auth
-		// ------------------------------------------------------------
-		// Create your application on marvelapp.com/oauth/applications/
-		// This example uses:
-		// Client Type: confidential
-		// Authorization Grant Type: authorization-code
-
-		function state(){
-
-		  if (localStorage['state'] === undefined){
-		    localStorage['state'] = Math.random().toString(36).substr(2, 16)
-		  }
-
-		  return localStorage['state']
-
-		}
-
-		function authorizeUrl(scope){
-
-		  var params = jQuery.param({
-		    state: state(),
-		    client_id: clientId,
-		    response_type: "token",
-		    scope: scope
-		  });
-
-		  var url = marvelUrl + "oauth/authorize/?" + params
-		  return url
-
-		}
 
 		function checkForTokenInUrl(){
 
@@ -99,117 +70,6 @@
 		  showLoader()
 		  setupTimer()
 		  findLastUpdateImages()
-
-		}
-
-		// GraphQL
-		// ------------------------------------------------------------
-		// Test your query here: https://marvelapp.com/graphql
-
-		function graphQL(query){
-
-		  return $.ajax({
-		      method: "POST",
-		      url: marvelUrl + "graphql/",
-		      data: JSON.stringify({ "query": query}),
-		      headers: {
-		          'Authorization':'Bearer ' + localStorage['accessToken'],
-		      },
-		      contentType: "application/json",
-		      crossDomain:true
-		  });
-
-		}
-
-		function companyProjects(){
-
-		  var query = `
-		      query {
-		          user {
-		            email
-		            username
-		            company{
-		              projects(first: 20) {
-		              pageInfo {
-		                hasNextPage
-		                endCursor
-		              }
-		              edges {
-		                node {
-		                  pk
-		                  lastModified
-		                  name
-		                }
-		              }
-		            }
-		          }
-		        }
-		      }
-		  `;
-
-		  return graphQL(query);
-
-		}
-
-		function personalProjects(){
-
-		  var query = `
-		      query {
-		          user {
-		            email
-		            username
-		            projects(first: 20) {
-		              pageInfo {
-		                hasNextPage
-		                endCursor
-		              }
-		              edges {
-		                node {
-		                  pk
-		                  lastModified
-		                  name
-		                }
-		              }
-		            }
-		        }
-		    }
-		  `;
-
-		  return graphQL(query);
-
-		}
-
-
-		function project(pk){
-
-		  var query = `
-		      fragment image on ImageScreen {
-		        filename
-		        url
-		        height
-		        width
-		      }
-
-		      query {
-		        project(pk: ${pk}) {
-		          name
-		          screens(first: 100) {
-		            edges {
-		              node {
-		                name
-		                modifiedAt
-		                content {
-		                  __typename
-		                  ... image
-		                }
-		              }
-		            }
-		          }
-		        }
-		      }
-		  `;
-
-		  return graphQL(query);
 
 		}
 
@@ -273,7 +133,7 @@
 		function lastCompanyProjectsPKs(callback, error){
 
 		  $.when(
-		    companyProjects()
+		    marvelGraphQL.companyProjects()
 		  ).then(function(projectJson) {
 
 		    // All images found throughout projects
@@ -322,7 +182,7 @@
 
 		        deferreds.push(
 
-		          project(pk).then(function(result) {
+		          marvelGraphQL.project(pk).then(function(result) {
 
 		            var projectName = result["data"]["project"]["name"]
 		            var nodes = result["data"]["project"]["screens"]["edges"]
@@ -425,7 +285,7 @@
 		// Design
 		// ------------------------------------------------------------
 
-		$('#connectMarvelButton').attr("href", authorizeUrl(scopes))
+		$('#connectMarvelButton').attr("href", marvelGraphQL.authorizeUrl())
 
 		// Actions
 		// ------------------------------------------------------------
@@ -447,15 +307,6 @@
 		}
 
 		checkForTokenInUrl()
-
-
-		//let p = new Home();
-
-
-		//var div = document.getElementById('root');
-		//div.innerHTML = p.render();
-
-
 
 	});
 })(jQuery);

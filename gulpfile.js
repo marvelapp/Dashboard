@@ -22,11 +22,11 @@ function sassify() {
 
 gulp.task('build:js', function() {
     return gulp.src(paths.js)
-        .pipe(concat('main.min.js'))
         .pipe(babel({
-    			presets: ["env"]
-    		}))
+          presets: ["env"]
+        }))
         .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+        .pipe(concat('main.min.js'))
         .pipe(rename({dirname: '/'}))
         .pipe(gulp.dest('assets/'))
         .pipe(connect.reload())
