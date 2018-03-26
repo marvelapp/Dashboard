@@ -15,7 +15,6 @@ class MarvelGraphQL {
   		// Client Type: confidential
   		// Authorization Grant Type: authorization-code
 
-
   		authorizeUrl(){
 
   		  var params = jQuery.param({
