@@ -13,7 +13,7 @@ Therefore you can just download the source code and run it straightway without i
 If you want to test the authentication part you need to:
 - Run a local webserver (see below)
 - Make it accessible on a https address (see below)
-- Create a API application here: marvelapp.com/oauth/applications/ (Client Type: confidential, Grant Type: authorization-code)
+- Create a API application here: marvelapp.com/oauth/applications/ (Client Type: public, Grant Type: implicit])
 - While creating your application, use the https address as your redirect url.
 - Change the ```clientId``` in ```main.js``` with the your API application client id.
 
