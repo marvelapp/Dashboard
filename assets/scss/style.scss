@@ -335,28 +335,41 @@ p{
    Animation classes
    ========================================================================== */
 
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+@include keyframes(floating) {
+  0% {transform-origin: 0 0px;}
+  65% {transform-origin: 0 15px;}
+  100% {transform-origin: 0 -0px;}
+}
+
+
 .floating{
-    float: left;
-    -webkit-animation-name: Floatingx;
-    -webkit-animation-duration: 3s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    -moz-animation-name: Floating;
-    -moz-animation-duration: 3s;
-    -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: ease-in-out;
-}
-
-@-webkit-keyframes Floatingx{
-    from {-webkit-transform-origin: 0 0px;}
-    65% {-webkit-transform-origin: 0 15px;}
-    to {-webkit-transform-origin: 0 -0px;}
-}
-
-@-moz-keyframes Floating{
-    from {-moz-transform-origin: 0, 0px;}
-    65% {-moz-transform-origin: 0, 15px;}
-    to {-moz-transform-origin: 0, -0px;}
+    @include animation('floating 3s infinite');
 }
 
 /* ==========================================================================
