@@ -213,7 +213,7 @@ p{
   margin-left: auto;
   margin-right: auto;
   max-width: 1012px;
-  height: 600px;
+  height: 650px;
   margin-top: 94px;
   display: block;
   border-radius: 5px;
@@ -231,6 +231,10 @@ p{
 .preview .screen{
   background: #fff;
   flex: 2;
+  background-image: url('images/contents.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 863px 483px;
 }
 
 /* ==========================================================================
@@ -349,6 +353,10 @@ p{
     .header .actions .chrome-support .chromecast-logo{
       background: url('images/logo-chromecast@2x.png');
       background-size: 142px 24px;
+    }
+
+    .preview .screen{
+      background-image: url('images/contents@2x.png');
     }
 
 }
