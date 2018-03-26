@@ -1,4 +1,4 @@
-# Marvel Dashboard
+# Dashboard for Marvel
 A dashboard to show what your design team is working on.
 This project is an example of how to use the Marvel API.
 
