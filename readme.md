@@ -6,6 +6,14 @@ This project is an example of how to use the Marvel API.
 
 <img src="/assets/images/github-preview.jpg?raw=true" width="888">
 
+Compile
+----
+
+- Terminal: `npm install`
+- Terminal: `bower install`
+- Terminal: `gulp`
+
+
 License
 ----
 
