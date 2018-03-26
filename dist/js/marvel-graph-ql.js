@@ -12,8 +12,8 @@ class MarvelGraphQL {
   		// ------------------------------------------------------------
   		// Create your application on marvelapp.com/oauth/applications/
   		// This example uses:
-  		// Client Type: confidential
-  		// Authorization Grant Type: authorization-code
+  		// Client Type: public
+  		// Authorization Grant Type: implicit
 
   		authorizeUrl(){
 
