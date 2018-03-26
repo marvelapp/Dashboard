@@ -13,6 +13,9 @@ Compile
 - Terminal: `bower install`
 - Terminal: `gulp`
 
+If you want to run Dashboard locally you need to change the .env.json file with your own marvel_client_id.
+Otherwise the oAuth flow will fail.
+
 Publish
 ----
 

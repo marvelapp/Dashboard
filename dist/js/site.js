@@ -1,11 +1,10 @@
-
 // Marvel GraphQL
 // ------------------------------------------------------------
 // This is the class which handles all the requests...
 // If you're new to Marvel's API this is likely the place where
 // you want to start.
 
-var marvelGraphQL = new MarvelGraphQL("PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF", "projects:read user:read company.projects:read company:read")
+var marvelGraphQL = new MarvelGraphQL(process.env.MARVEL_CLIENT_ID, "projects:read user:read company.projects:read company:read")
 
 // Timer
 // ------------------------------------------------------------

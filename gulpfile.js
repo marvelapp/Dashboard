@@ -11,6 +11,7 @@ const concat = require('gulp-concat'),
       merge = require('merge-stream'),
       uglify = require('gulp-uglify'),
       ghPages = require('gulp-gh-pages'),
+      env = require('gulp-env'),
       plugins = require("gulp-load-plugins")({
       	pattern: ['gulp-*', 'gulp.*', 'main-bower-files'],
       	replaceString: /\bgulp[\-.]/
@@ -35,7 +36,7 @@ gulp.task('build:js', function() {
     .pipe(plugins.filter( '**/*.js' ) )
 
   var js = gulp.src(paths.js)
-    .pipe(babel({ presets: ["env"] }))
+    .pipe(babel())
     .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
 
   return merge(bowerjs, js)
@@ -85,9 +86,28 @@ gulp.task('watch:html', () => {
     gulp.watch(paths.html, ['build:html']);
 });
 
-gulp.task('deploy', ['build:css', 'build:js', 'build:images', 'build:html'], function() {
+gulp.task('deploy', ['set-prod-env','build:css', 'build:js', 'build:images', 'build:html'], function() {
+
   return gulp.src('.build/**/*')
     .pipe(ghPages());
+
+});
+
+gulp.task('set-dev-env', function() {
+
+  env({
+    file: '.env.json'
+  });
+});
+
+gulp.task('set-prod-env', function() {
+
+  env({
+    file: '.env.json',
+    vars: {
+      MARVEL_CLIENT_ID: "7Ig0DiIJJNSFiX8xx6VS9lubcymTqBGgfUYZuzpa"
+    }
+  });
 });
 
 gulp.task('webserver', function() {
@@ -97,4 +117,4 @@ gulp.task('webserver', function() {
   });
 });
 
-gulp.task('default', [ 'build:css', 'build:js', 'build:images', 'build:html', 'watch:js', 'watch:css', 'watch:images', 'watch:html', 'webserver']);
+gulp.task('default', [ 'set-dev-env', 'build:css', 'build:js', 'build:images', 'build:html', 'watch:js', 'watch:css', 'watch:images', 'watch:html', 'webserver']);
