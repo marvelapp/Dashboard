@@ -87,10 +87,10 @@ p{
 }
 
 .header .logo{
-  width: 156px;
-  height: 24px;
+  width: 157px;
+  height: 25px;
   display: inline-block;
-  background: url('images/logo.png');
+  background: url('images/logo.svg');
   margin-bottom: 50px;
 }
 
@@ -344,11 +344,6 @@ p{
 @media (-o-min-device-pixel-ratio: 5/4),
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
-
-    .header .logo{
-      background: url('images/logo@2x.png');
-      background-size: 156px 24px;
-    }
 
     .header .actions .chrome-support .chromecast-logo{
       background: url('images/logo-chromecast@2x.png');

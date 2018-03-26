@@ -290,6 +290,11 @@ $(document).ready(function(){
 		  event.stopPropagation();
 		});
 
+		$('.marvel-integration-badge').click(function(event){
+		  window.open("https://marvelapp.com/developers");
+		});
+
+
 		// Start
 		// ------------------------------------------------------------
 
