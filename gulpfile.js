@@ -16,8 +16,10 @@ const concat = require('gulp-concat'),
       });
 
 const paths = {
-      js: 'assets/js/*.js',
-      css: 'assets/scss/*.scss'
+      js: 'dist/js/*.js',
+      css: 'dist/scss/*.scss',
+      html: 'dist/index.html',
+      images: 'dist/images/*.{gif,jpg,png,svg}'
 };
 
 function sassify() {
@@ -39,18 +41,30 @@ gulp.task('build:js', function() {
     //.pipe(plugins.uglify())
     .pipe(concat('main.min.js'))
     .pipe(rename({dirname: '/'}))
-    .pipe(gulp.dest('assets/'))
+    .pipe(gulp.dest('build/'))
     .pipe(connect.reload());
 
 });
 
+gulp.task('build:images', function() {
+  return gulp.src(paths.images)
+      .pipe(gulp.dest('build/images/'))
+      .pipe(connect.reload());
+});
+
+gulp.task('build:html', function() {
+  return gulp.src(paths.html)
+      .pipe(gulp.dest('build/'))
+      .pipe(connect.reload());
+});
+
 gulp.task('build:css', () => (
-    gulp.src('assets/scss/style.scss')
+    gulp.src(paths.css)
         .pipe(sassify())
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
-        .pipe(gulp.dest('assets/'))
+        .pipe(gulp.dest('build/'))
         .pipe(connect.reload())
 ));
 
@@ -58,14 +72,23 @@ gulp.task('watch:js', () => {
     gulp.watch(paths.js, ['build:js']);
 });
 
+gulp.task('watch:images', () => {
+    gulp.watch(paths.images, ['build:images']);
+});
+
 gulp.task('watch:css', () => {
     gulp.watch(paths.css, ['build:css']);
 });
 
+gulp.task('watch:html', () => {
+    gulp.watch(paths.html, ['build:html']);
+});
+
 gulp.task('webserver', function() {
   connect.server({
-    livereload: true
+    livereload: true,
+    root: 'build'
   });
 });
 
-gulp.task('default', [ 'build:css', 'build:js', 'watch:js', 'watch:css', 'webserver']);
+gulp.task('default', [ 'build:css', 'build:js', 'build:images', 'build:html', 'watch:js', 'watch:css', 'watch:images', 'watch:html', 'webserver']);
