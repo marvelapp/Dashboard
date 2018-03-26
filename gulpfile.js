@@ -40,12 +40,11 @@ gulp.task('build:js', function() {
     .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
 
   return merge(bowerjs, js)
-    //.pipe(plugins.uglify())
+    .pipe(plugins.uglify())
     .pipe(concat('main.min.js'))
     .pipe(rename({dirname: '/'}))
     .pipe(gulp.dest('.build/'))
     .pipe(connect.reload());
-
 });
 
 gulp.task('build:images', function() {
@@ -87,21 +86,17 @@ gulp.task('watch:html', () => {
 });
 
 gulp.task('deploy', ['set-prod-env','build:css', 'build:js', 'build:images', 'build:html'], function() {
-
   return gulp.src('.build/**/*')
     .pipe(ghPages());
-
 });
 
 gulp.task('set-dev-env', function() {
-
   env({
     file: '.env.json'
   });
 });
 
 gulp.task('set-prod-env', function() {
-
   env({
     file: '.env.json',
     vars: {
