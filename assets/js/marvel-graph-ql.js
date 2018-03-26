@@ -4,6 +4,7 @@ class MarvelGraphQL {
         this.marvelUrl = 'https://marvelapp.com/';
         this.clientId = clientId;
         this.state = state;
+        this.scopes = scopes;
         this.request = this.request.bind(this)
       }
 
