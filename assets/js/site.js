@@ -211,15 +211,18 @@ $(document).ready(function(){
 
 		  $.each(first3Images, function(i, image) {
 
-		      var img = ""
-					img += "<div class='flexItem'>";
-					img += "<div class='centerBox'>";
-					img += "<div class='image'>";
-					img += "<img src='" + image["content"]['url'] + "'>";
-					img += "</div>";
-					img += "<div class='footer'>" + image['projectName'] + "</div>";
-					img += "</div>"
-					img += "</div>"
+		      var img = `
+					<div class='flexItem'>
+						<div class='centerBox'>
+							<div class='image'>
+								<img src='${image["content"]['url']}'>
+							</div>
+							<div class='footer'>
+								${image['projectName']}
+							</div>
+						</div>
+					</div>
+					`
 
 		      $('#lastUpdated').append(img)
 
