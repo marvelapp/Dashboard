@@ -2,7 +2,7 @@
 
 $(document).ready(function(){
 
-		var marvelGraphQL = new MarvelGraphQL("PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF", "projects:read user:read company.projects:read company:read", state())
+		var marvelGraphQL = new MarvelGraphQL("PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF", "projects:read user:read company.projects:read company:read")
 
 		// Errors
 		var Error = {
@@ -11,15 +11,7 @@ $(document).ready(function(){
 		    NO_IMAGES : 3,
 		};
 
-		function state(){
 
-			if (localStorage['state'] === undefined){
-				localStorage['state'] = Math.random().toString(36).substr(2, 16)
-			}
-
-			return localStorage['state'];
-
-		};
 
 		// Timer
 		// ------------------------------------------------------------
@@ -57,7 +49,7 @@ $(document).ready(function(){
 		  }
 
 		  // Check if the state is the same
-		  if (dictionary["state"] != state()){
+		  if (dictionary["state"] != marvelGraphQL.state()){
 		    console.log("State is not the same, therefore we can't authenticate...")
 		    return
 		  }

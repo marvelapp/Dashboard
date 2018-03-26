@@ -314,8 +314,7 @@ p{
    Media Queries
    ========================================================================== */
 
-@media print,
-       (-o-min-device-pixel-ratio: 5/4),
+@media (-o-min-device-pixel-ratio: 5/4),
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
 
@@ -366,7 +365,6 @@ p{
   65% {transform-origin: 0 15px;}
   100% {transform-origin: 0 -0px;}
 }
-
 
 .floating{
     @include animation('floating 3s infinite');
@@ -428,13 +426,10 @@ p{
   height: 100%;
   background-color: #3E71FF;
   border-radius: 50%;
-  -webkit-animation: ellipse-animation 2.4s cubic-bezier(0, -0.26, 0.32, 1.22) 0s infinite;
-          animation: ellipse-animation 2.4s cubic-bezier(0, -0.26, 0.32, 1.22) 0s infinite;
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
+  @include animation('ellipse-animation 2.4s cubic-bezier(0, -0.26, 0.32, 1.22) 0s infinite');
 }
 
-@-webkit-keyframes ellipse-animation {
+@include keyframes(ellipse-animation) {
   0% {
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
@@ -446,136 +441,56 @@ p{
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
+    transform: rotate(45deg);
   }
   25% {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
+    transform: rotate(90deg);
   }
   37.5% {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
+    transform: rotate(135deg);
   }
   50% {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
+    transform: rotate(180deg);
   }
   62.5% {
     border-top-left-radius: 50%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    -webkit-transform: rotate(225deg);
-            transform: rotate(225deg);
+    transform: rotate(225deg);
   }
   75% {
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
-    -webkit-transform: rotate(270deg);
-            transform: rotate(270deg);
+    transform: rotate(270deg);
   }
   87.5% {
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 0;
-    -webkit-transform: rotate(315deg);
-            transform: rotate(315deg);
+    transform: rotate(315deg);
   }
   100% {
     border-top-left-radius: 50%;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-}
-@keyframes ellipse-animation {
-  0% {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-  }
-  12.5% {
-    border-top-left-radius: 0;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(45deg);
-            transform: rotate(45deg);
-  }
-  25% {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(90deg);
-            transform: rotate(90deg);
-  }
-  37.5% {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(135deg);
-            transform: rotate(135deg);
-  }
-  50% {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
-  }
-  62.5% {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    -webkit-transform: rotate(225deg);
-            transform: rotate(225deg);
-  }
-  75% {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    -webkit-transform: rotate(270deg);
-            transform: rotate(270deg);
-  }
-  87.5% {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 0;
-    -webkit-transform: rotate(315deg);
-            transform: rotate(315deg);
-  }
-  100% {
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 50%;
-    border-bottom-left-radius: 50%;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -629,68 +544,4 @@ p{
 
 .clearfix {
     *zoom: 1;
-}
-
-/* ==========================================================================
-   Print styles
-   ========================================================================== */
-
-@media print {
-    *,
-    *:before,
-    *:after {
-        background: transparent !important;
-        color: #000 !important;
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    thead {
-        display: table-header-group;
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
 }

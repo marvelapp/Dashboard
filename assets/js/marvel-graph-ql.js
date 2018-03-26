@@ -1,9 +1,9 @@
 class MarvelGraphQL {
 
-      constructor(clientId, scopes, state) {
+      constructor(clientId, scopes) {
         this.marvelUrl = 'https://marvelapp.com/';
         this.clientId = clientId;
-        this.state = state;
+        this.state = this.state.bind(this);
         this.scopes = scopes;
         this.request = this.request.bind(this)
       }
@@ -29,6 +29,21 @@ class MarvelGraphQL {
   		  return url
 
   		}
+
+      // State
+  		// ------------------------------------------------------------
+      // This is used to check if the request matches the original
+      // request.
+
+      state(){
+
+        if (localStorage['state'] === undefined){
+          localStorage['state'] = Math.random().toString(36).substr(2, 16)
+        }
+
+        return localStorage['state'];
+
+      };
 
   		// GraphQL
   		// ------------------------------------------------------------
