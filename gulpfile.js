@@ -7,7 +7,13 @@ const concat = require('gulp-concat'),
       gutil = require('gulp-util'),
       autoprefixer = require('gulp-autoprefixer'),
       babel = require('gulp-babel'),
-      connect = require('gulp-connect');
+      connect = require('gulp-connect'),
+      merge = require('merge-stream'),
+      uglify = require('gulp-uglify'),
+      plugins = require("gulp-load-plugins")({
+      	pattern: ['gulp-*', 'gulp.*', 'main-bower-files'],
+      	replaceString: /\bgulp[\-.]/
+      });
 
 const paths = {
       js: 'assets/js/*.js',
@@ -21,15 +27,21 @@ function sassify() {
 }
 
 gulp.task('build:js', function() {
-    return gulp.src(paths.js)
-        .pipe(babel({
-          presets: ["env"]
-        }))
-        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
-        .pipe(concat('main.min.js'))
-        .pipe(rename({dirname: '/'}))
-        .pipe(gulp.dest('assets/'))
-        .pipe(connect.reload())
+
+  var bowerjs = gulp.src( plugins.mainBowerFiles() )
+    .pipe(plugins.filter( '**/*.js' ) )
+
+  var js = gulp.src(paths.js)
+    .pipe(babel({ presets: ["env"] }))
+    .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
+
+  return merge(bowerjs, js)
+    //.pipe(plugins.uglify())
+    .pipe(concat('main.min.js'))
+    .pipe(rename({dirname: '/'}))
+    .pipe(gulp.dest('assets/'))
+    .pipe(connect.reload());
+
 });
 
 gulp.task('build:css', () => (

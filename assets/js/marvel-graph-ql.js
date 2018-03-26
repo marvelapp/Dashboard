@@ -1,5 +1,3 @@
-'use strict';
-
 class MarvelGraphQL {
 
       constructor(clientId, scopes, state) {

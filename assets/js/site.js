@@ -1,5 +1,6 @@
 (function($) {
-	$(document).ready(function(){
+
+$(document).ready(function(){
 
 		var marvelGraphQL = new MarvelGraphQL("PWszPnfm3aqASM3edc5kWf8fZAoY1jAwJIM3qXWF", "projects:read user:read company.projects:read company:read", state())
 
@@ -300,6 +301,7 @@
 
 		if (localStorage['accessToken'] === undefined){
 		  showLoggedOut()
+			console.log("logged out")
 		} else {
 		  showLoader()
 		  setupTimer()
@@ -309,4 +311,5 @@
 		checkForTokenInUrl()
 
 	});
+
 })(jQuery);
