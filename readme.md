@@ -13,6 +13,12 @@ Compile
 - Terminal: `bower install`
 - Terminal: `gulp`
 
+Publish
+----
+
+Dashboard is hosted on Github Pages.
+To publish the dashboard run:
+- Terminal: `gulp deploy`
 
 License
 ----

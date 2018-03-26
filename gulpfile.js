@@ -10,6 +10,7 @@ const concat = require('gulp-concat'),
       connect = require('gulp-connect'),
       merge = require('merge-stream'),
       uglify = require('gulp-uglify'),
+      ghPages = require('gulp-gh-pages'),
       plugins = require("gulp-load-plugins")({
       	pattern: ['gulp-*', 'gulp.*', 'main-bower-files'],
       	replaceString: /\bgulp[\-.]/
@@ -41,20 +42,20 @@ gulp.task('build:js', function() {
     //.pipe(plugins.uglify())
     .pipe(concat('main.min.js'))
     .pipe(rename({dirname: '/'}))
-    .pipe(gulp.dest('build/'))
+    .pipe(gulp.dest('.build/'))
     .pipe(connect.reload());
 
 });
 
 gulp.task('build:images', function() {
   return gulp.src(paths.images)
-      .pipe(gulp.dest('build/images/'))
+      .pipe(gulp.dest('.build/images/'))
       .pipe(connect.reload());
 });
 
 gulp.task('build:html', function() {
   return gulp.src(paths.html)
-      .pipe(gulp.dest('build/'))
+      .pipe(gulp.dest('.build/'))
       .pipe(connect.reload());
 });
 
@@ -64,7 +65,7 @@ gulp.task('build:css', () => (
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
-        .pipe(gulp.dest('build/'))
+        .pipe(gulp.dest('.build/'))
         .pipe(connect.reload())
 ));
 
@@ -84,10 +85,15 @@ gulp.task('watch:html', () => {
     gulp.watch(paths.html, ['build:html']);
 });
 
+gulp.task('deploy', ['build:css', 'build:js', 'build:images', 'build:html'], function() {
+  return gulp.src('.build/**/*')
+    .pipe(ghPages());
+});
+
 gulp.task('webserver', function() {
   connect.server({
     livereload: true,
-    root: 'build'
+    root: '.build'
   });
 });
 

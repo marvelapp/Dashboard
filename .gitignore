@@ -16,8 +16,9 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
-# Where we build...
-build
+# Where we build and publish...
+.build
+.publish
 
 # Dependency directory
 # Commenting this out is preferred by some people, see
