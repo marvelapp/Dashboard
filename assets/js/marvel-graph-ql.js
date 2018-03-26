@@ -4,6 +4,7 @@ class MarvelGraphQL {
         this.marvelUrl = 'https://marvelapp.com/';
         this.clientId = clientId;
         this.state = state;
+        this.request = this.request.bind(this)
       }
 
       // Auth
@@ -73,7 +74,7 @@ class MarvelGraphQL {
   		      }
   		  `;
 
-  		  return request(query);
+  		  return this.request(query);
 
   		}
 
@@ -101,7 +102,7 @@ class MarvelGraphQL {
   		    }
   		  `;
 
-  		  return request(query);
+  		  return this.request(query);
 
   		}
 
@@ -135,7 +136,7 @@ class MarvelGraphQL {
   		      }
   		  `;
 
-  		  return request(query);
+  		  return this.request(query);
 
   		}
 
