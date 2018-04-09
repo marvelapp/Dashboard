@@ -5,12 +5,14 @@
 	<title>Dashboard</title>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-38711157-4"></script>
 	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag("js", new Date());
 
-	  gtag('config', 'UA-38711157-4');
-	</script>
+gtag("config", "UA-38711157-4");
+</script>
 </head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -52,6 +54,7 @@
 			<div class="screen"></div>
 		</div>
 	</div>
+
 	<div id="loggedIn">
 		<div class="flex border-box">
 		  <div class="last-updated-header">
@@ -69,10 +72,12 @@
 
 		<a href="#logout" id="logout" class="logout-link">Logout</a>
 	</div>
+
 	<div id="loader">
-		<div class="spinner">
-	    <div class="ellipse"></div>
-	  </div>
+		<div class="center">
+			<div class="spinner">
+	  	</div>
+		</div>
 	</div>
 	<div id="error hidden">
 		  <p>Error message</p>
