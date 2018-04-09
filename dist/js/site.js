@@ -153,7 +153,10 @@ $(document).ready(function() {
         }
       });
 
-      callback(projectPKs, null);
+      const removedDuplicatedProjectPKs = removeDuplicateValues(projectPKs);
+
+      console.log(removedDuplicatedProjectPKs);
+      callback(removedDuplicatedProjectPKs, null);
     });
   }
 
@@ -228,6 +231,15 @@ $(document).ready(function() {
     // Update projects every 60 seconds
     clearInterval(timer);
     timer = setInterval(findLastUpdateImages, 60000);
+  }
+
+  function removeDuplicateValues(array) {
+    var uniqueArray = [];
+    $.each(array, function(i, el) {
+      if ($.inArray(el, uniqueArray) === -1) uniqueArray.push(el);
+    });
+
+    return uniqueArray;
   }
 
   // States
