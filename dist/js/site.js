@@ -244,7 +244,7 @@ $(document).ready(function() {
     $("#loggedIn").addClass("hidden");
     $("#loggedOut").addClass("hidden");
     $("#loader").removeClass("hidden");
-    $("#error").removeClass("hidden");
+    $("#error").addClass("hidden");
   }
 
   function showError(message) {
