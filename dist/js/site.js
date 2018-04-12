@@ -197,9 +197,7 @@ $(document).ready(function() {
       var img = `
 					<div class='flexItem'>
 						<div class='centerBox'>
-							<div class='image'>
-								<img src='${image["content"]["url"]}'>
-							</div>
+							<img src='${image["content"]["url"]}'>
 							<div class='footer'>
 								${image["projectName"]}
 							</div>
