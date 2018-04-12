@@ -196,12 +196,10 @@ $(document).ready(function() {
     $.each(first3Images, function(i, image) {
       var img = `
 					<div class='flexItem'>
-						<div class='centerBox'>
 							<img src='${image["content"]["url"]}'>
 							<div class='footer'>
 								${image["projectName"]}
 							</div>
-						</div>
 					</div>
 					`;
 
