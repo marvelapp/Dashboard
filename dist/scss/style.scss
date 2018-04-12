@@ -325,6 +325,9 @@ p {
   font-size: 20px;
   margin-top: 10px;
   color: #222d39;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .flexItem img {

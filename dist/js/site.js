@@ -155,7 +155,6 @@ $(document).ready(function() {
 
       const removedDuplicatedProjectPKs = removeDuplicateValues(projectPKs);
 
-      console.log(removedDuplicatedProjectPKs);
       callback(removedDuplicatedProjectPKs, null);
     });
   }
@@ -202,9 +201,35 @@ $(document).ready(function() {
 							</div>
 					</div>
 					`;
-
       $("#lastUpdated").append(img);
     });
+
+    positionLabels();
+  }
+
+  function getStyle(el, styleProp) {
+    if (el.currentStyle) var y = el.currentStyle[styleProp];
+    else if (window.getComputedStyle)
+      var y = document.defaultView
+        .getComputedStyle(el, null)
+        .getPropertyValue(styleProp);
+    return y;
+  }
+
+  function positionLabels() {
+    setTimeout(function() {
+      $(".flexItem").each(function(index) {
+        resizeLabel($(this));
+      });
+    }, 0);
+  }
+
+  function resizeLabel(element) {
+    var img = element.find("img");
+    var top = parseFloat(img.css("height")) + parseFloat(img.css("margin-top"));
+    var width = img.css("width");
+    var left = img.css("margin-left");
+    element.find(".footer").css({ top: top, left: left, width: width });
   }
 
   // Helpers
@@ -285,6 +310,12 @@ $(document).ready(function() {
     window.open("https://marvelapp.com/developers");
   });
 
+  function listenForWindowResize() {
+    $(window).resize(function() {
+      positionLabels();
+    });
+  }
+
   // Start
   // ------------------------------------------------------------
 
@@ -298,4 +329,5 @@ $(document).ready(function() {
   }
 
   checkForTokenInUrl();
+  listenForWindowResize();
 });
