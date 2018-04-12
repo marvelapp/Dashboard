@@ -194,42 +194,34 @@ $(document).ready(function() {
 
     $.each(first3Images, function(i, image) {
       var img = `
-					<div class='flexItem'>
-							<img src='${image["content"]["url"]}'>
-							<div class='footer'>
-								${image["projectName"]}
-							</div>
-					</div>
-					`;
+          <div class='flexItem'>
+              <img src='${image["content"]["url"]}'>
+              <div class='footer'>
+                ${image["projectName"]}
+              </div>
+          </div>
+          `;
       $("#lastUpdated").append(img);
     });
 
-    positionLabels();
-  }
-
-  function getStyle(el, styleProp) {
-    if (el.currentStyle) var y = el.currentStyle[styleProp];
-    else if (window.getComputedStyle)
-      var y = document.defaultView
-        .getComputedStyle(el, null)
-        .getPropertyValue(styleProp);
-    return y;
+    $("#lastUpdated")
+      .waitForImages()
+      .done(function() {
+        positionLabels();
+      });
   }
 
   function positionLabels() {
-    setTimeout(function() {
-      $(".flexItem").each(function(index) {
-        resizeLabel($(this));
-      });
-    }, 0);
-  }
-
-  function resizeLabel(element) {
-    var img = element.find("img");
-    var top = parseFloat(img.css("height")) + parseFloat(img.css("margin-top"));
-    var width = img.css("width");
-    var left = img.css("margin-left");
-    element.find(".footer").css({ top: top, left: left, width: width });
+    $(".flexItem").each(function(index) {
+      var img = $(this).find("img");
+      var top =
+        parseFloat(img.css("height")) + parseFloat(img.css("margin-top"));
+      var width = img.css("width");
+      var left = img.css("margin-left");
+      $(this)
+        .find(".footer")
+        .css({ top: top, left: left, width: width });
+    });
   }
 
   // Helpers

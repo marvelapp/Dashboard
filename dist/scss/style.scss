@@ -252,6 +252,7 @@ p {
 .logout-link {
   text-decoration: none;
   position: absolute;
+  z-index: 999;
   right: 25px;
   bottom: 20px;
 }
