@@ -5,6 +5,8 @@ class MarvelGraphQL {
     this.state = this.state.bind(this);
     this.scopes = scopes;
     this.request = this.request.bind(this);
+
+    this.localStorageAccessTokenKey = "marvel.accessToken";
   }
 
   // Auth
@@ -14,7 +16,7 @@ class MarvelGraphQL {
   // Client Type: public
   // Authorization Grant Type: implicit
 
-  authorizeUrl() {
+  authorizeUrl(callback) {
     const params = jQuery.param({
       state: this.state,
       client_id: this.clientId,
@@ -23,6 +25,20 @@ class MarvelGraphQL {
     });
 
     return this.marvelUrl + "oauth/authorize/?" + params;
+  }
+
+  removeToken() {
+    localStorage.removeItem(this.localStorageAccessTokenKey);
+  }
+
+  token() {
+    return localStorage[this.localStorageAccessTokenKey];
+  }
+
+  tokenCheckValid(callback) {}
+
+  saveToken(token) {
+    localStorage[this.localStorageAccessTokenKey] = token;
   }
 
   // State
@@ -50,7 +66,7 @@ class MarvelGraphQL {
       url: this.marvelUrl + "graphql/",
       data: JSON.stringify({ query: query }),
       headers: {
-        Authorization: "Bearer " + localStorage["accessToken"]
+        Authorization: "Bearer " + localStorage[this.localStorageAccessTokenKey]
       },
       contentType: "application/json",
       crossDomain: true

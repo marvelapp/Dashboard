@@ -21,44 +21,23 @@ var timer;
 
 $(document).ready(function() {
   function checkForTokenInUrl() {
-    // No Hash in the url
-    // eg: http://helloworld?hello
+    let accessToken = getParameterByName("access_token");
+    let state = getParameterByName("state");
 
-    if (window.location.hash == null) {
+    if (accessToken == null || state == null) {
       return;
     }
 
-    // Hash in the url
-    // eg: http://helloworld#access_token=1234
-
-    var hashData = window.location.hash;
-    var parameters = hashData.substr(1, window.location.hash.length);
-    var parametersSplit = parameters.split("&");
-    var dictionary = parametersSplit.reduce(function(
-      accumulator,
-      currentValue
-    ) {
-      var bits = currentValue.split("=");
-      accumulator[bits[0]] = bits[1];
-      return accumulator;
-    },
-    {});
-
-    var accessToken = dictionary["access_token"];
-
-    // No token in url
-    if (accessToken == null) {
-      return;
-    }
+    console.log(accessToken);
 
     // Check if the state is the same
-    if (dictionary["state"] != marvelGraphQL.state()) {
+    if (state != marvelGraphQL.state()) {
       console.log("State is not the same, therefore we can't authenticate...");
       return;
     }
 
     // Store token in session for later use...
-    localStorage["accessToken"] = accessToken;
+    marvelGraphQL.saveToken(accessToken);
 
     // Remove hash from the url, we don't want to keep that in there...
     history.pushState(
@@ -228,16 +207,13 @@ $(document).ready(function() {
   // ------------------------------------------------------------
 
   function logout() {
-    localStorage.removeItem("accessToken");
+    marvelGraphQL.removeToken();
     showLoggedOut();
   }
 
-  function getParams(url, k) {
-    var p = {};
-    url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(s, k, v) {
-      p[k] = v;
-    });
-    return k ? p[k] : p;
+  function getParameterByName(name) {
+    var match = RegExp("[#&]" + name + "=([^&]*)").exec(window.location.hash);
+    return match && decodeURIComponent(match[1].replace(/\+/g, " "));
   }
 
   function setupTimer() {
@@ -311,11 +287,11 @@ $(document).ready(function() {
   // Start
   // ------------------------------------------------------------
 
-  if (localStorage["accessToken"] === undefined) {
+  showLoader();
+
+  if (marvelGraphQL.token() === undefined) {
     showLoggedOut();
-    console.log("logged out");
   } else {
-    showLoader();
     setupTimer();
     findLastUpdateImages();
   }
