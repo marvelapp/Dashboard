@@ -20,7 +20,7 @@ var timer;
 // To keep it super easy we use jQuery for this little app...
 
 $(document).ready(function() {
-  function checkForTokenInUrl() {
+  function checkForTokenInUrlAndSaveToken() {
     let accessToken = getParameterByName("access_token");
     let state = getParameterByName("state");
 
@@ -28,29 +28,27 @@ $(document).ready(function() {
       return;
     }
 
-    console.log(accessToken);
-
     // Check if the state is the same
     if (state != marvelGraphQL.state()) {
-      console.log("State is not the same, therefore we can't authenticate...");
+      showError("Your sessions expired. Please try again...");
       return;
     }
 
     // Store token in session for later use...
     marvelGraphQL.saveToken(accessToken);
 
-    // Remove hash from the url, we don't want to keep that in there...
-    history.pushState(
-      "",
-      document.title,
-      window.location.href
-        .replace(/\#(.+)/, "")
-        .replace(/http(s?)\:\/\/([^\/]+)/, "")
-    );
+    // Remove all returned information from hash
+    removeHash();
+  }
 
-    showLoader();
-    setupTimer();
-    findLastUpdateImages();
+  function updateData() {
+    marvelGraphQL.tokenCheckValid(function(isValid) {
+      if (isValid) {
+        findLastUpdateImages();
+      } else {
+        logout();
+      }
+    });
   }
 
   // Find the last updated images
@@ -206,20 +204,28 @@ $(document).ready(function() {
   // Helpers
   // ------------------------------------------------------------
 
-  function logout() {
-    marvelGraphQL.removeToken();
-    showLoggedOut();
-  }
-
   function getParameterByName(name) {
     var match = RegExp("[#&]" + name + "=([^&]*)").exec(window.location.hash);
     return match && decodeURIComponent(match[1].replace(/\+/g, " "));
   }
 
+  function removeHash() {
+    history.pushState(
+      "",
+      document.title,
+      window.location.pathname + window.location.search
+    );
+  }
+
+  function logout() {
+    marvelGraphQL.removeToken();
+    showLoggedOut();
+  }
+
   function setupTimer() {
     // Update projects every 60 seconds
     clearInterval(timer);
-    timer = setInterval(findLastUpdateImages, 60000);
+    timer = setInterval(updateData, 60000);
   }
 
   function removeDuplicateValues(array) {
@@ -270,8 +276,8 @@ $(document).ready(function() {
   // ------------------------------------------------------------
 
   $('a[href="#logout"]').click(function(event) {
-    logout();
     event.stopPropagation();
+    logout();
   });
 
   $(".marvel-integration-badge").click(function(event) {
@@ -287,15 +293,20 @@ $(document).ready(function() {
   // Start
   // ------------------------------------------------------------
 
+  checkForTokenInUrlAndSaveToken();
+  listenForWindowResize();
   showLoader();
 
   if (marvelGraphQL.token() === undefined) {
     showLoggedOut();
   } else {
-    setupTimer();
-    findLastUpdateImages();
+    marvelGraphQL.tokenCheckValid(function(isValid) {
+      if (isValid) {
+        setupTimer();
+        findLastUpdateImages();
+      } else {
+        showLoggedOut();
+      }
+    });
   }
-
-  checkForTokenInUrl();
-  listenForWindowResize();
 });

@@ -5,7 +5,7 @@ class MarvelGraphQL {
     this.state = this.state.bind(this);
     this.scopes = scopes;
     this.request = this.request.bind(this);
-
+    this.user = this.user.bind(this);
     this.localStorageAccessTokenKey = "marvel.accessToken";
   }
 
@@ -27,6 +27,9 @@ class MarvelGraphQL {
     return this.marvelUrl + "oauth/authorize/?" + params;
   }
 
+  // Token
+  // ------------------------------------------------------------
+
   removeToken() {
     localStorage.removeItem(this.localStorageAccessTokenKey);
   }
@@ -35,7 +38,16 @@ class MarvelGraphQL {
     return localStorage[this.localStorageAccessTokenKey];
   }
 
-  tokenCheckValid(callback) {}
+  tokenCheckValid(callback) {
+    this.user().then(
+      function(xhr, result) {
+        callback(true);
+      },
+      function(xhr, result) {
+        callback(false);
+      }
+    );
+  }
 
   saveToken(token) {
     localStorage[this.localStorageAccessTokenKey] = token;
@@ -71,6 +83,18 @@ class MarvelGraphQL {
       contentType: "application/json",
       crossDomain: true
     });
+  }
+
+  user() {
+    var query = `
+        query {
+           user {
+            username
+            email
+          }
+        }
+    `;
+    return this.request(query);
   }
 
   projects() {
