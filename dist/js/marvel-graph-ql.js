@@ -1,6 +1,7 @@
 class MarvelGraphQL {
   constructor(clientId, scopes) {
     this.marvelUrl = "https://marvelapp.com/";
+    this.graphqlUrl = "https://api.marvelapp.com/graphql/";
     this.clientId = clientId;
     this.state = this.state.bind(this);
     this.scopes = scopes;
@@ -75,7 +76,7 @@ class MarvelGraphQL {
   request(query) {
     return $.ajax({
       method: "POST",
-      url: this.marvelUrl + "graphql/",
+      url: this.graphqlUrl,
       data: JSON.stringify({ query: query }),
       headers: {
         Authorization: "Bearer " + localStorage[this.localStorageAccessTokenKey]
