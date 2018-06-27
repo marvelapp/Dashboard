@@ -3,19 +3,29 @@ import { Transition, animated } from "react-spring";
 
 import WindowOptions from "./img/options.svg";
 import ContentsImage from "./img/contents.png";
+import ContentsImageRetina from "./img/contents@2x.png";
 import ContentsImageStats from "./img/contents-stats.png";
+import ContentsImageStatsRetina from "./img/contents-stats@2x.png";
 
 import "./style.css";
 
 const slides = [
   style => (
     <animated.div style={style}>
-      <img alt="Dashboard latest design screen" src={ContentsImage} />
+      <img
+        alt="Dashboard latest design screen"
+        src={ContentsImage}
+        srcset={`${ContentsImageRetina} 2x`}
+      />
     </animated.div>
   ),
   style => (
     <animated.div style={style}>
-      <img alt="Dashboard stats screen" src={ContentsImageStats} />
+      <img
+        alt="Dashboard stats screen"
+        src={ContentsImageStats}
+        srcset={`${ContentsImageStatsRetina} 2x`}
+      />
     </animated.div>
   )
 ];
