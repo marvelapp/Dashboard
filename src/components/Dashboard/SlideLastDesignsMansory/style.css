@@ -1,0 +1,21 @@
+.LastDesignsMansory {
+  background: #EEF1F5;
+  padding: 90px;
+  overflow: scroll;
+  height: 100vh;
+}
+
+.LastDesignsMansory-image{
+  box-shadow: 0 2px 12px 0 rgba(12, 16, 20, 0.2);
+  width: 100%;
+  display: block;
+}
+
+.LastDesignsMansory-title {
+  font-size: 64px;
+  font-weight: 700;
+  color: #24292e;
+  margin-bottom: 50px;
+  line-height: 78px;
+  text-align: center;
+}

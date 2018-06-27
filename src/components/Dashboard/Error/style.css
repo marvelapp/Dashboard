@@ -1,0 +1,17 @@
+.Error {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: table;
+  position: absolute;
+  background: #fff;
+  text-align: center;
+}
+
+.Error-center {
+  display: table-cell;
+  vertical-align: middle;
+}

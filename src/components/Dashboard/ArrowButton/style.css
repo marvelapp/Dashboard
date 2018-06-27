@@ -1,0 +1,19 @@
+.ArrowButton{
+  background: #F1F7FF;
+  border: solid 1px #E4E3FE;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  display: table;
+  cursor: pointer;
+}
+
+.ArrowButton:hover{
+  background: #DEE9F8;
+}
+
+.ArrowButton-icon{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}

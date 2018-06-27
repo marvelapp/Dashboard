@@ -1,0 +1,59 @@
+.Dashboard {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.Dashboard-hover-content{
+  z-index: 999;
+}
+
+.Dashboard-left-button{
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  margin-top: -25px;
+}
+
+.Dashboard-right-button{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  margin-top: -25px;
+}
+
+.Dashboard-logout-link {
+  text-decoration: none;
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
+  background: #F1F7FF;
+  border: 1px solid #E5E4FF;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #3E71FF;
+  padding: 10px 17px;
+  font-weight: 700;
+}
+
+.Dashboard-logout-link:hover{
+  background: #DEE9F8;
+}
+
+.Dashboard-instructions {
+  position: absolute;
+  left: 25px;
+  bottom: 20px;
+  background: #FFF3B8;
+  border: 1px solid #FFE043;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #B89900;
+  padding: 10px 17px;
+  font-weight: 700;
+}

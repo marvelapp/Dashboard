@@ -1,0 +1,36 @@
+{
+  "name": "dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.0.0",
+    "apollo-client": "^2.0.1",
+    "apollo-link": "^1.0.0",
+    "apollo-link-context": "^1.0.5",
+    "apollo-link-error": "^1.0.7",
+    "apollo-link-http": "^1.1.0",
+    "apollo-link-set-context": "^0.5.4",
+    "classnames": "^2.2.5",
+    "graphql": "^0.11.7",
+    "graphql-tag": "^2.7.3",
+    "lodash": "^4.17.4",
+    "moment": "^2.22.2",
+    "react": "^16.4.0",
+    "react-apollo": "^2.0.4",
+    "react-dom": "^16.4.0",
+    "react-helmet": "^5.2.0",
+    "react-idle-timer": "^3.0.0",
+    "react-responsive-masonry": "^2.0.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "react-scroll": "^1.7.9",
+    "react-spring": "^5.3.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

@@ -1,0 +1,33 @@
+.SlideStats{
+  background: #24292E;
+  height: 100vh;
+  color: white;
+  padding: 90px;
+  align-items: stretch;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.SlideStats-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.SlideStats-count{
+  font-size: 18vh;
+  font-weight: 700;
+}
+
+.SlideStats-count-description{
+  font-size: 6vh;
+}
+
+.SlideStats-stats{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+}

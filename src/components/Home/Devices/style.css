@@ -1,0 +1,58 @@
+.Home-devices {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 150px;
+  margin-bottom: 150px;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+}
+
+.Home-devices img{
+  border-radius: 5px;
+  box-shadow: 0 2px 12px 0 rgba(12, 16, 20, 0.2);
+  position: absolute;
+}
+
+.Home-devices-left-column {
+  width: 380px;
+}
+
+.Home-devices-right-column {
+  width: 582px;
+  position: relative;
+}
+
+.Home-devices-dashboard-image{
+  left: 0px;
+}
+
+.Home-devices-chromecast-dongle{
+  right: 0px;
+  top: 150px;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .Home-devices-left-column {
+    width: 100%;
+  }
+
+  .Home-devices-right-column {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .Home-devices img{
+    border-radius: 5px;
+    box-shadow: 0 2px 12px 0 rgba(12, 16, 20, 0.2);
+    position: relative;
+    width: 100%;
+  }
+
+  .Home-devices-chromecast-dongle{
+    display: none;
+  }
+
+}

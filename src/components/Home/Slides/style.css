@@ -1,0 +1,52 @@
+
+.Home-preview {
+  background: #eef1f5;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1012px;
+  margin-top: 94px;
+  display: block;
+  border-radius: 5px;
+  box-shadow: 0 2px 12px 0 rgba(12, 16, 20, 0.2);
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+  text-align: left;
+}
+
+.Home-preview-navbar {
+  height: 31px;
+  display: flex;
+}
+
+.Home-preview-navbar img {
+  margin-left: 8px;
+}
+
+.Home-preview-screen {
+  background: #fff;
+  flex: 2;
+  padding-bottom: 58%;
+  position: relative;
+}
+
+.Home-preview-screen img {
+  width: 100%;
+  height: auto;
+}
+
+.Home-preview-image-container{
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .Home-preview {
+    margin-top: 40px;
+  }
+
+}

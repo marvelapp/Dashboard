@@ -1,0 +1,69 @@
+.Home-header {
+  max-width: 835px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 26px;
+}
+
+.Home-title {
+  font-size: 64px;
+  font-weight: 700;
+  color: #24292e;
+  margin: 0;
+  line-height: 78px;
+}
+
+.Home-subtitle {
+  font-size: 21px;
+  line-height: 35px;
+  color: #8792a1;
+  max-width: 500px;
+  padding-bottom: 10px;
+}
+
+.Home-logo{
+  width: 157px;
+  height: 25px;
+  display: inline-block;
+  background: url("img/logo.svg");
+  margin-bottom: 50px;
+}
+
+.Home-chrome-support {
+  display: inline-block;
+  font-size: 14px;
+  color: #8792a1;
+  margin-left: 32px;
+  margin-top: 4px;
+}
+
+.Home-actions{
+  margin-top: 30px;
+  display: flex;
+}
+
+.Home-chrome-logo {
+  width: 142px;
+  height: 24px;
+  display: inline-block;
+  margin-top: 1px;
+  margin-left: -2px;
+  background-image: url("img/logo-chromecast.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 142px 24px;
+}
+
+@media only screen and (max-width: 800px) {
+
+  .Home-actions{
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .Home-chrome-support  {
+    flex: 0 0 100%;
+    margin-left: 0px;
+    margin-top: 30px;
+  }
+}

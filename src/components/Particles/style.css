@@ -1,0 +1,64 @@
+.Particles {
+  width: 1012px;
+  height: 0px;
+  display: block;
+  left: 50%;
+  margin-left: -506px;
+  top: 0;
+  position: absolute;
+}
+
+.Particles-square-red {
+  position: relative;
+  left: 140px;
+  top: -7px;
+  transform: rotate(-330deg);
+}
+
+.Particles-square-blue {
+  animation-delay: 0.2s;
+  position: relative;
+  left: -62px;
+  top: 110px;
+  transform: rotate(-30deg);
+}
+
+.Particles-triangle-green {
+  animation-delay: 0.3s;
+  position: relative;
+  left: 981px;
+  top: 380px;
+  transform: rotate(-315deg);
+}
+
+.Particles-triangle-yellow {
+  animation-delay: 0.4s;
+  position: relative;
+  left: 865px;
+  top: 100px;
+  transform: rotate(-30deg);
+}
+
+.Particles-circle-blue {
+  animation-delay: 0.3s;
+  position: relative;
+  left: 787px;
+  top: 522px;
+  transform: rotate(-30deg);
+}
+
+@keyframes floating {
+  0% {
+    transform-origin: 0 0px;
+  }
+  65% {
+    transform-origin: 0 15px;
+  }
+  100% {
+    transform-origin: 0 -0px;
+  }
+}
+
+.Particles-floating {
+  animation: floating 3s infinite;
+}

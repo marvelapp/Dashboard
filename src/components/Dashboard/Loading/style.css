@@ -1,0 +1,37 @@
+.Loader {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  display: table;
+  position: absolute;
+  background: #fff;
+  text-align: center;
+}
+
+.Loader-center {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.Loader-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3e71ff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
