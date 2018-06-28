@@ -74,10 +74,14 @@ class App extends Component {
       <ApolloProvider client={this.client}>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Dashboard</title>
+          <title>Dashboard - Feed for showcasing your prototypes</title>
           <meta
             name="description"
-            content="Display your team's design work on a screen in your office."
+            content="Dashboard is a livestream of images uploaded to company projects in Marvel."
+          />
+          <meta
+            name="keywords"
+            content="design dashboard, office dashboard, prototyping dashboard"
           />
           <link rel="canonical" href="https://dashboard.marvelapp.com" />
         </Helmet>
