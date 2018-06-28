@@ -1,6 +1,7 @@
 # Dashboard for Marvel
 
-A dashboard/slideshow to show what your design team is working on.
+Dashboard is a product of the Marvel API and is made for teams creating static designs and interactive prototypes in the Marvel platform.
+It's a space where all your teams Marvel activity is logged in a visually dynamic format, making it easy for teams to manage productivity and stay in sync on projects.
 
 [Try it out here](https://dashboard.marvelapp.com)
 
