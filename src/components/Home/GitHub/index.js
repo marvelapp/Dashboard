@@ -18,6 +18,7 @@ class GitHub extends Component {
           </p>
           <iframe
             src="https://ghbtns.com/github-btn.html?user=marvelapp&repo=Dashboard&type=star&size=large"
+            title="GitHub Star Button"
             frameborder="0"
             scrolling="0"
             width="80px"

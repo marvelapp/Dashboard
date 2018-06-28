@@ -17,8 +17,8 @@ class Devices extends Component {
             Works on every device with a web browser, including Chromecast
           </h2>
           <p>
-            Dashboard is a livestream of images uploaded to company projects in
-            Marvel
+            Dashboard displays the latest designs uploaded to Marvel by members
+            of your team.
           </p>
         </div>
         <div className="Home-devices-right-column">
