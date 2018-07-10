@@ -7,7 +7,7 @@ class OauthTokenStart extends React.Component {
     const scopesEscaped = encodeURIComponent(Scopes.trim());
     const oauthRedirect =
       MarvelUrl +
-      "/oauth/authorize/?client_id=" +
+      "/oauth/authorize/?approval_prompt=auto&client_id=" +
       ClientId +
       "&response_type=token&redirect_uri=" +
       document.location.protocol +
