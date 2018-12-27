@@ -33,7 +33,7 @@
   top: 150px;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1150px) {
 
   .Home-devices-left-column {
     width: 100%;
